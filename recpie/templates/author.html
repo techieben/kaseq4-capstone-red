@@ -1,0 +1,15 @@
+<h1>Author Detail</h1>
+
+<ul>
+    <h3>{{author.name}}</h3> 
+        {{author.bio}}
+        {% for recpie in data %}
+            {% if recpie.author == author %}
+            <a href="{% url 'recipe' id=recpie.id %}">{{recpie.title}}</a>
+            {% endif %}
+        {% endfor %}
+
+
+</ul>
+
+<a href="{% url 'homepage' %}">Home Page</a>
