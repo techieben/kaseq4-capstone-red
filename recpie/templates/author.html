@@ -1,7 +1,10 @@
 <h1>Author Detail</h1>
 
 <ul>
-    <h3>{{author.name}}</h3> 
+    <h3>{{author.name}}</h3>
+        
+        <h4>{{recpie.email}}<h4>
+                 
         {{author.bio}}
         {% for recpie in data %}
             {% if recpie.author == author %}
