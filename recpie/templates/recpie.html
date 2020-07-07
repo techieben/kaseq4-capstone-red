@@ -10,13 +10,18 @@
     <a href="{% url 'author' id=recpie.author.id %}">{{recpie.author.name}}</a> | Created on {{recpie.date}}
     </li>
             <ul>
+                <li>
+                {{recpie.meal_option}}
+                </li>
                 
                 <li>
                 {{recpie.description}}
                 </li>
+                
                 <li>
                 {{recpie.time_required}}
                 </li>
+                
                 <li>
                 {{recpie.instructions}}
                 </li>

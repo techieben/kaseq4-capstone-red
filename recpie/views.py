@@ -16,6 +16,7 @@ def author(request, id):
     data = RecpieItems.objects.all()
     author = Author.objects.get(id=id)
     recpie = RecpieItems.objects.filter(author=author)
+    meal_type = RecpieItems.objects.get(id=id)
     return render(request, 'author.html', {
         'data': data, 'author': author, 'recpie': recpie
     })
@@ -33,6 +34,7 @@ def add_recpie (request):
         author = RecpieItems.objects.create(
             title=data['title'],
             author=request.user.author,
+            meal_option=data['meal_option'],
             description=data['description'],
             time_required=data['time_required'],
             instructions=data['instructions'],
@@ -76,3 +78,5 @@ def logout_view(request):
     if logout(request):
         return HttpResponseRedirect(reverse('homepage'))
     return render(request, 'index.html', {})
+
+
