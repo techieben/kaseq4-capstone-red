@@ -17,7 +17,7 @@ class Meal_Type(models.Model):
     QUICKEASY = 'QE'
     lOWCALORIE = 'LC'
     GLUTENFREE = 'GF'
-    DIABETIC= 'DA'
+    DIABETIC = 'DA'
     VEGETARIAN = 'VG'
 
 MEAL_CHOICES = [
@@ -32,10 +32,30 @@ MEAL_CHOICES = [
 def __str__(self):
     return self.meal_option
 
+class Measurement(models.Model):
+    TEASPOON = 'tsp' 
+    TABLESPOON = 'tbsp'
+    CUP = 'c'
+    PINT = 'pt'
+    QUART = 'qt'
+    GALLON = 'g'
+
+MEASUREMENT_CHOICES = [
+    ('tsp','Teaspoon'),
+    ('tbsp','Tablespoon'),
+    ('c','Cup'),
+    ('pt','Pint'),
+    ('qt','Quart'),
+    ('g','Gallon'),
+]
+
+def __str__(self):
+    return self.measurement_option
+
 
 class RecpieItems(models.Model):
     title = models.CharField(max_length=50)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE) 
     meal_option = models.CharField(max_length=2, choices=MEAL_CHOICES, default='Heart-Healthy')
     description = models.TextField()
     time_required = models.CharField(max_length=30)
