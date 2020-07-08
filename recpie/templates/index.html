@@ -1,4 +1,23 @@
-<h1>Recpie Box</h1>
+{% load static %}
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Recpie Box</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+<!-- include the needed font from google api -->
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Archivo+Black" />
+<!-- include the nutrition label plugin css file -->
+    <link rel="stylesheet" type="text/css" href="/bower_components/nutrition-label-jquery-plugin/dist/css/nutritionLabel-min.css">
+  
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <h1>Recpie Box</h1>
 
 Are you logged in? {{ request.user.is_authenticated }}
 {% block content %}
@@ -25,3 +44,13 @@ Are you logged in? {{ request.user.is_authenticated }}
 <p>
 <a href="{% url 'add_author' %}">Add your author's information here!</a>
 </p>
+  
+  <script src="js/scripts.js">
+{% comment %} <!-- include the jquery library --> {% endcomment %}
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+{% comment %} <!-- include the nutrition label plugin js file --> {% endcomment %}
+    <script type="text/javascript" src="/bower_components/nutrition-label-jquery-plugin/dist/js/nutritionLabel-min.js"></script>
+  </script>
+  
+</body>
+</html>
