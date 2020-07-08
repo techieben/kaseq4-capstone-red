@@ -32,27 +32,6 @@ MEAL_CHOICES = [
 def __str__(self):
     return self.meal_option
 
-class Measurement(models.Model):
-    TEASPOON = 'tsp' 
-    TABLESPOON = 'tbsp'
-    CUP = 'c'
-    PINT = 'pt'
-    QUART = 'qt'
-    GALLON = 'g'
-
-MEASUREMENT_CHOICES = [
-    ('tsp','Teaspoon'),
-    ('tbsp','Tablespoon'),
-    ('c','Cup'),
-    ('pt','Pint'),
-    ('qt','Quart'),
-    ('g','Gallon'),
-]
-
-def __str__(self):
-    return self.measurement_option
-
-
 class RecpieItems(models.Model):
     title = models.CharField(max_length=50)
     author = models.ForeignKey(Author, on_delete=models.CASCADE) 
