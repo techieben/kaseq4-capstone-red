@@ -1,0 +1,32 @@
+<h1> Recpie Detail </h1>
+
+<ul>
+    <li>
+    {{recpie.title}}
+    </li> 
+</ul>
+<ul>
+    <li>
+    <a href="{% url 'author' id=recpie.author.id %}">{{recpie.author.name}}</a> | Created on {{recpie.date}}
+    </li>
+            <ul>
+                
+                <li>
+                {{recpie.meal_option}}
+                </li>
+                
+                <li>
+                {{recpie.description}}
+                </li>
+                
+                <li>
+                {{recpie.time_required}}
+                </li>
+                
+                <li>
+                {{recpie.instructions}}
+                </li>
+<p>                
+<a href="{% url 'homepage' %}">Home Page</a>
+</p>
+</ul>            
