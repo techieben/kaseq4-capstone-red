@@ -5,7 +5,6 @@ from django.utils import timezone
 # from django.contrib.postgres.fields import JSONField
 
 
-# Create your models here.
 class Recipe(models.Model):
     MEAL_CHOICES = [
         ('HH','Heart-Healthy'),
