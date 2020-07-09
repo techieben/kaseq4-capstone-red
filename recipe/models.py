@@ -1,7 +1,7 @@
 from django.db import models
 from recpie.models import Author
 from django.utils import timezone
-from django.contrib.postgres.fields import ArrayField
+# from django.contrib.postgres.fields import ArrayField
 # from django.contrib.postgres.fields import JSONField
 
 
@@ -27,8 +27,8 @@ class Recipe(models.Model):
     )
     date_created = models.DateTimeField(default=timezone.now)
     # A list of CharField, or create a Tag class and make a many to many connection
-    tags = ArrayField(models.CharField(max_length=2, choices=MEAL_CHOICES), blank=True)
-    instructions = ArrayField(models.CharField(max_length=320))
+    # tags = ArrayField(models.CharField(max_length=2, choices=MEAL_CHOICES), blank=True)
+    # instructions = ArrayField(models.CharField(max_length=320))
     servings = models.IntegerField(default=1)
     # Save as a list [0,0,0]?, [days, hours, minuites]?
     time_prep_days = models.IntegerField(default=0)
