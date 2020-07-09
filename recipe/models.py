@@ -57,11 +57,11 @@ class Recipe(models.Model):
             running = False
             if total_time_mins >=60:
                 total_time_hours += 1
-                total_time_mins -= 1
+                total_time_mins -= 60
                 running = True
             if total_time_hours >=24:
                 total_time_days += 1
-                total_time_hours -= 1
+                total_time_hours -= 24
                 running = True
         output = ''
         if total_time_days > 0:
