@@ -79,4 +79,7 @@ def logout_view(request):
         return HttpResponseRedirect(reverse('homepage'))
     return render(request, 'index.html', {})
 
-
+@login_required
+def nutrition_label(request):
+    # nutrition_information = RecpieItems.objects.all(id=id)
+    return render(request, 'nutrition_label.html', {})

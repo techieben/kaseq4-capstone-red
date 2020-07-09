@@ -44,3 +44,9 @@ class RecpieItems(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class RecpieCard(models.Model):
+    title = models.CharField(max_length=50)
+    recpie_picture = models.URLField(max_length=200)
+    stars = models.CharField(max_length=50)
