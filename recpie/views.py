@@ -81,5 +81,8 @@ def logout_view(request):
 
 @login_required
 def nutrition_label(request):
-    # nutrition_information = RecpieItems.objects.all(id=id)
     return render(request, 'nutrition_label.html', {})
+
+@login_required
+def recpie_card(request):
+    return render(request, 'recpie_card.html', {})

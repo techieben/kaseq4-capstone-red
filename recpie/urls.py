@@ -9,5 +9,6 @@ urlpatterns = [
     path('recipe/<int:id>/', views.recpie, name='recpie'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('nutrition_label', views.nutrition_label, name='nutrition_label')
+    path('nutrition_label/', views.nutrition_label, name='nutrition_label'),
+    path('recpie_card/', views.recpie_card, name='recpie_card'),
 ]

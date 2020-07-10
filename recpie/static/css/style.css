@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 .image {
   width: 250px;
   float: left;
@@ -117,14 +118,20 @@ p {
   border-bottom: 1px solid black;
 }
 
-div.recpie-label-container {
-
+div.card-container {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  max-width: 300 px;
+  max-height: 300 px;
+  display: block;
+  border: 20px solid black;
+  text-align: center;
 }
 
-div.recpie-picture {
-
+div.card-container:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-div.star-box {
-
+div.container {
+  padding: 20px 16px;
 }

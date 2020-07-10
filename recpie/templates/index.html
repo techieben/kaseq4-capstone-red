@@ -8,7 +8,7 @@
   <title>Recpie Box</title>
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
-  <link rel="stylesheet" href="./static/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./static/css/style.css">
   
 </head>
 <body>
@@ -37,19 +37,15 @@ Are you logged in? {{ request.user.is_authenticated }}
 <a href="{% url 'nutrition_label' %}">Check our your choices nutritional value!</a>
 </p>
 <p>
+<a href="{% url 'recpie_card' %}">Recpie cards here!</a>
+</p>
+<p>
 <a href="{% url 'add_recpie' %}">Add recpie here!</a>
 </p>
 <p>
 <a href="{% url 'add_author' %}">Add your author's information here!</a>
 </p>
   
-<div class='recpie-label-container'>
-  <div class='recpie-picture'>
-  </div>
-  <div class='star-box'> 
-  </div>
-</div>
-
   <script src="./static/css/scripts.js"></script>
 
 </body>
