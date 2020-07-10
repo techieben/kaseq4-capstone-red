@@ -118,31 +118,45 @@ p {
   border-bottom: 1px solid black;
 }
 
-.card {
+div#recipe-card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+div.card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
+  max-width: 30%;
   margin: auto;
   text-align: center;
   font-family: arial;
-}
-
-.price {
-  color: grey;
-  font-size: 22px;
+  flex-direction: row;
 }
 
 .card button {
   border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: #000;
+  background-color:beige;
+  display: table-cell;
   text-align: center;
+  vertical-align: bottom;
   cursor: pointer;
-  width: 100%;
-  font-size: 18px;
+  width: 30vw;
+  font-size: 22px;
+  position: relative;
+  padding: 2%;
 }
 
 .card button:hover {
   opacity: 0.7;
 }
+
+img {
+  width: 25vw;
+}
+
+#card-star-container {
+  margin-top: 2vw;
+  display: table;
+}
+
