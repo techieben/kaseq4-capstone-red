@@ -7,17 +7,18 @@ from django.utils import timezone
 
 class Recipe(models.Model):
     MEAL_CHOICES = [
-        ('HH','Heart-Healthy'),
-        ('QE','Quick&Easy'),
-        ('LC','Low-Calorie'),
-        ('GF','Gluten-Free'),
-        ('DA','Diabetic'),
-        ('VG','Vegetarian'),
+        ('HH', 'Heart-Healthy'),
+        ('QE', 'Quick&Easy'),
+        ('LC', 'Low-Calorie'),
+        ('GF', 'Gluten-Free'),
+        ('DA', 'Diabetic'),
+        ('VG', 'Vegetarian'),
     ]
-    
+
     title = models.CharField(max_length=120, unique=True)
     description = models.TextField(max_length=320)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='author')
+    author = models.ForeignKey(
+        Author, on_delete=models.CASCADE, related_name='author')
     favorites = models.ManyToManyField(
         Author,
         blank=True,
@@ -42,23 +43,26 @@ class Recipe(models.Model):
 
     # reviews will point to a Recipe
     # stretch goals photos, public/private recipe, (property) avg ratings from reviews
-    
+
     def __str__(self):
-        return self.content
+        return self.title
 
     @property
     def total_time(self):
-        total_time_days = self.time_prep_days + self.time_hours_days + self.additional_prep_days
-        total_time_hours = self.time_prep_hours + self.time_hours_hours + self.additional_prep_hours
-        total_time_mins = self.time_prep_mins + self.time_hours_mins + self.additional_prep_mins
+        total_time_days = self.time_prep_days + \
+            self.time_hours_days + self.additional_prep_days
+        total_time_hours = self.time_prep_hours + \
+            self.time_hours_hours + self.additional_prep_hours
+        total_time_mins = self.time_prep_mins + \
+            self.time_hours_mins + self.additional_prep_mins
         running = True
         while running:
             running = False
-            if total_time_mins >=60:
+            if total_time_mins >= 60:
                 total_time_hours += 1
                 total_time_mins -= 60
                 running = True
-            if total_time_hours >=24:
+            if total_time_hours >= 24:
                 total_time_days += 1
                 total_time_hours -= 24
                 running = True

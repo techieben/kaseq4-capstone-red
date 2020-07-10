@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block content %} {% include 'nav.html' %}
+
+<h2>Recipe Detail</h2>
+
+<ul>
+  <li>
+    {{recipe.title}}
+  </li>
+</ul>
+<ul>
+  <li>
+    <a href="{% url 'author' id=recipe.author.id %}">{{recipe.author.name}}</a>
+    | Created on {{recipe.date}}
+  </li>
+  <ul>
+    <li>
+      {{recipe.meal_option}}
+    </li>
+
+    <li>
+      {{recipe.description}}
+    </li>
+
+    <li>
+      {{recipe.servings}}
+    </li>
+
+    <li>
+      {{recipe.total_time}}
+    </li>
+
+    <li>
+      {{recipe.instructions}}
+    </li>
+  </ul>
+
+  {% endblock %}
+</ul>

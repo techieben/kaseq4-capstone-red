@@ -18,6 +18,7 @@ from django.urls import path
 from . import views
 
 from recpie.urls import urlpatterns as recpie_urls
+from recipe.urls import urlpatterns as recipe_urls
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
@@ -25,3 +26,4 @@ urlpatterns = [
 ]
 
 urlpatterns += recpie_urls
+urlpatterns += recipe_urls
