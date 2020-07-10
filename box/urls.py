@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path
 
 from recpie.urls import urlpatterns as recpie_urls
+from recipe.urls import urlpatterns as recipe_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-urlpatterns += recpie_urls
+urlpatterns += recpie_urls + recipe_urls

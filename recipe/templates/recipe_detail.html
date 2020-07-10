@@ -1,0 +1,80 @@
+<h1> Recpie Detail </h1>
+{% for recipe in recipes %}
+    <ul>
+        <li>
+            Title: {{recipe.title}}
+        </li> 
+    </ul>
+    <ul>
+        <li>
+            Author: <a href="">{{recipe.author.name}}</a> | Created on {{recipe.date_created}}
+        </li>
+                <ul>
+                    
+                    <li>
+                        Tags:
+                        <ul>
+                            {% for tag in recipe.tags %}
+                            <li>
+                                {{tag}}                
+                            </li>
+                            {% endfor %}                        
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        Description: {{recipe.description}}
+                    </li>
+                    
+                    <li>
+                        # of servings: {{recipe.servings}}
+                    </li>
+                    
+                    <li>
+                        <!-- will set up custom tag to make this easier -->
+                        <!-- Prep Time:  recipe|related_plain_time recipe.time_prep  -->
+                        Prep Time: {{recipe.time_prep}}
+                    </li>
+                    
+                    <li>
+                        <!-- will set up custom tag to make this easier -->
+                        <!-- Prep Time:  recipe|related_plain_time recipe.time_prep  -->
+                        Cook Time: {{recipe.time_cook}}
+                    </li>
+                    
+                    <li>
+                        <!-- will set up custom tag to make this easier -->
+                        <!-- Prep Time:  recipe|related_plain_time recipe.time_prep  -->
+                        Additional Time: {{recipe.time_additional}}
+                    </li>
+                    
+                    <li>
+                        Total Time: {{recipe.total_time}}
+                    </li>
+                    
+                    <li>
+                        Ingredients:
+                        <ul>
+                            {% for ingredient in recipe.ingredients %}
+                            <li>
+                                {{ingredient}}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        Instructions:
+                        <ul>
+                            {% for step in recipe.instructions %}
+                            <li>
+                                {{step}}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+    <p>                
+    <a href="{% url 'homepage' %}">Home Page</a>
+    </p>
+    </ul>    
+{% endfor %}     
