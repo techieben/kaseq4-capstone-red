@@ -42,12 +42,6 @@ class Recipe(models.Model):
     title = models.CharField(max_length=120, unique=True)
     description = models.TextField(max_length=320)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='author')
-    favorites = models.ManyToManyField(
-        Author,
-        blank=True,
-        symmetrical=False,
-        related_name='user_favorite'
-    )
     date_created = models.DateTimeField(default=timezone.now)
     # A list of CharField, or create a Tag class and make a many to many connection
     tags = ChoiceArrayField(models.CharField(max_length=2, choices=MEAL_CHOICES), blank=True)
@@ -59,7 +53,17 @@ class Recipe(models.Model):
     time_cook = ArrayField(models.IntegerField(default=0), size=3)
     time_additional = ArrayField(models.IntegerField(default=0), size=3)
     
-
+    REQUIRED_FIELDS = [
+        'title',
+        'description',
+        'author',
+        'ingredients',
+        'instructions',
+        'servings',
+        'time_prep',
+        'time_cook',
+        'time_additional'
+        ]
     # reviews will point to a Recipe
     # stretch goals photos, public/private recipe, (property) avg ratings from reviews
     
@@ -109,7 +113,7 @@ class Recipe(models.Model):
                 output += str(time_list[2]) + ' Mins '
         return (output)
         
-        @register.filter
-        def related_plain_time(obj, time_list):
-            return obj.get_related_plain_time(time_list)
+    @register.filter
+    def related_plain_time(obj, time_list):
+        return obj.get_related_plain_time(time_list)
     
