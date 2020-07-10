@@ -122,3 +122,9 @@ STATIC_URL = '/static/'
 STATIC_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = 'homepage'
+LOGOUT_REDIRECT_URL = 'homepage'
