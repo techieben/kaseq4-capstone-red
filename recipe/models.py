@@ -38,10 +38,12 @@ class Recipe(models.Model):
     ('DA','Diabetic'),
     ('VG','Vegetarian'),
     ]
-    
+
     title = models.CharField(max_length=120, unique=True)
     description = models.TextField(max_length=320)
+
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='author')
+
     date_created = models.DateTimeField(default=timezone.now)
     # A list of CharField, or create a Tag class and make a many to many connection
     tags = ChoiceArrayField(models.CharField(max_length=2, choices=MEAL_CHOICES), blank=True)
@@ -66,7 +68,7 @@ class Recipe(models.Model):
         ]
     # reviews will point to a Recipe
     # stretch goals photos, public/private recipe, (property) avg ratings from reviews
-    
+
     def __str__(self):
         return self.title
 
@@ -78,11 +80,11 @@ class Recipe(models.Model):
         running = True
         while running:
             running = False
-            if total_time_mins >=60:
+            if total_time_mins >= 60:
                 total_time_hours += 1
                 total_time_mins -= 60
                 running = True
-            if total_time_hours >=24:
+            if total_time_hours >= 24:
                 total_time_days += 1
                 total_time_hours -= 24
                 running = True
@@ -116,4 +118,3 @@ class Recipe(models.Model):
     @register.filter
     def related_plain_time(obj, time_list):
         return obj.get_related_plain_time(time_list)
-    

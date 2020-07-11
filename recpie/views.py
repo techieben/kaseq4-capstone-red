@@ -12,6 +12,7 @@ def index(request):
     author = Author.objects.all()
     return render(request, 'index.html', {'data': data, 'author': author})
 
+
 def author(request, id):
     data = RecpieItems.objects.all()
     author = Author.objects.get(id=id)
@@ -21,12 +22,14 @@ def author(request, id):
         'data': data, 'author': author, 'recpie': recpie
     })
 
+
 def recpie(request, id):
     recpie = RecpieItems.objects.all(id=id)
     return render(request, 'recpie.html', {'recpie': recpie})
 
+
 @login_required
-def add_recpie (request):
+def add_recpie(request):
     html = "generic_form.html"
     form = AddRecpieForm()
     if request.method == "POST" and form.is_valid():
@@ -43,6 +46,7 @@ def add_recpie (request):
         return HttpResponseRedirect(reverse('homepage'))
     return render(request, html, {'form': form})
 
+
 @login_required
 def add_author(request):
     html = "generic_form.html"
@@ -58,6 +62,7 @@ def add_author(request):
         new_author.save()
     return render(request, html, {'form': form})
 
+
 def login_view(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -69,14 +74,13 @@ def login_view(request):
             if user:
                 login(request, user)
                 return HttpResponseRedirect(
-                    request.GET.get('next', reverse('homepage'))
+                    request.GET.get('next', reverse('index'))
                 )
     form = LoginForm()
-    return render(request, 'generic_form.html', {'form': form})
+    return render(request, 'form.html', {'form': form})
+
 
 def logout_view(request):
     if logout(request):
-        return HttpResponseRedirect(reverse('homepage'))
+        return HttpResponseRedirect(reverse('index'))
     return render(request, 'index.html', {})
-
-
