@@ -32,7 +32,7 @@ class RegisterView(View):
                                       password=form.cleaned_data['password1'],
                                       )
             login(request, new_author)
-            return HttpResponseRedirect(reverse('/'))
+            return HttpResponseRedirect(reverse('index'))
         return render(request, self.html, {'form': form})
 
 

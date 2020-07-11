@@ -10,9 +10,9 @@
   <a href="/">Notifications {{ request.user.notification_set.count }}</a> |
   <a href="/">My Profile</a> | <a href="/recipe_add/">Add a Recipe</a> |
   <a href="/">Favorite Recipes</a> |
-  <a href="/logout">Log Out</a>
+  <a href="/logout/">Log Out</a>
 </p>
 
 {% else %}
-<p><a href="/login">Log In</a> | <a href="/">Register</a></p>
+<p><a href="/login/">Log In</a> | <a href="/register/">Register</a></p>
 {% endif %}
