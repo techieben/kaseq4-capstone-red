@@ -1,46 +1,71 @@
 from django.db import models
+from django import forms
 from recpie.models import Author
 from django.utils import timezone
-# from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import ArrayField
 # from django.contrib.postgres.fields import JSONField
+from django import template
+
+register = template.Library()
+
+
+# source https://blogs.gnome.org/danni/2016/03/08/multiple-choice-using-djangos-postgres-arrayfield/
+class ChoiceArrayField(ArrayField):
+    """
+    A field that allows us to store an array of choices.
+    Uses Django's Postgres ArrayField
+    and a MultipleChoiceField for its formfield.
+    """
+
+    def formfield(self, **kwargs):
+        defaults = {
+            'form_class': forms.MultipleChoiceField,
+            'choices': self.base_field.choices,
+        }
+        defaults.update(kwargs)
+        # Skip our parent's formfield implementation completely as we don't
+        # care for it.
+        # pylint:disable=bad-super-call
+        return super(ArrayField, self).formfield(**defaults)
 
 
 class Recipe(models.Model):
     MEAL_CHOICES = [
-        ('HH', 'Heart-Healthy'),
-        ('QE', 'Quick&Easy'),
-        ('LC', 'Low-Calorie'),
-        ('GF', 'Gluten-Free'),
-        ('DA', 'Diabetic'),
-        ('VG', 'Vegetarian'),
+    ('HH','Heart-Healthy'),
+    ('QE','Quick&Easy'),
+    ('LC','Low-Calorie'),
+    ('GF','Gluten-Free'),
+    ('DA','Diabetic'),
+    ('VG','Vegetarian'),
     ]
 
     title = models.CharField(max_length=120, unique=True)
     description = models.TextField(max_length=320)
-    author = models.ForeignKey(
-        Author, on_delete=models.CASCADE, related_name='author')
-    favorites = models.ManyToManyField(
-        Author,
-        blank=True,
-        symmetrical=False,
-        related_name='user_favorite'
-    )
+
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='author')
+
     date_created = models.DateTimeField(default=timezone.now)
     # A list of CharField, or create a Tag class and make a many to many connection
-    # tags = ArrayField(models.CharField(max_length=2, choices=MEAL_CHOICES), blank=True)
-    # instructions = ArrayField(models.CharField(max_length=320))
+    tags = ChoiceArrayField(models.CharField(max_length=2, choices=MEAL_CHOICES), blank=True)
+    ingredients = ArrayField(models.CharField(max_length=450))
+    instructions = ArrayField(models.CharField(max_length=320))
     servings = models.IntegerField(default=1)
-    # Save as a list [0,0,0]?, [days, hours, minuites]?
-    time_prep_days = models.IntegerField(default=0)
-    time_prep_hours = models.IntegerField(default=0)
-    time_prep_mins = models.IntegerField(default=0)
-    time_cook_days = models.IntegerField(default=0)
-    time_cook_hours = models.IntegerField(default=0)
-    time_cook_mins = models.IntegerField(default=0)
-    time_additional_days = models.IntegerField(default=0)
-    time_additional_hours = models.IntegerField(default=0)
-    time_additional_mins = models.IntegerField(default=0)
-
+    # Save as a list [0,0,0], [days, hours, minuites]
+    time_prep = ArrayField(models.IntegerField(default=0), size=3)
+    time_cook = ArrayField(models.IntegerField(default=0), size=3)
+    time_additional = ArrayField(models.IntegerField(default=0), size=3)
+    
+    REQUIRED_FIELDS = [
+        'title',
+        'description',
+        'author',
+        'ingredients',
+        'instructions',
+        'servings',
+        'time_prep',
+        'time_cook',
+        'time_additional'
+        ]
     # reviews will point to a Recipe
     # stretch goals photos, public/private recipe, (property) avg ratings from reviews
 
@@ -49,12 +74,9 @@ class Recipe(models.Model):
 
     @property
     def total_time(self):
-        total_time_days = self.time_prep_days + \
-            self.time_hours_days + self.additional_prep_days
-        total_time_hours = self.time_prep_hours + \
-            self.time_hours_hours + self.additional_prep_hours
-        total_time_mins = self.time_prep_mins + \
-            self.time_hours_mins + self.additional_prep_mins
+        total_time_days = self.time_prep[0] + self.time_cook[0] + self.time_additional[0]
+        total_time_hours = self.time_prep[1] + self.time_cook[1] + self.time_additional[1]
+        total_time_mins = self.time_prep[2] + self.time_cook[2] + self.time_additional[2]
         running = True
         while running:
             running = False
@@ -68,9 +90,31 @@ class Recipe(models.Model):
                 running = True
         output = ''
         if total_time_days > 0:
-            output += total_time_days + ' Days '
+            output += str(total_time_days) + ' Days '
         if total_time_hours > 0:
-            output += total_time_hours + ' Hours '
+            output += str(total_time_hours) + ' Hours '
         if total_time_mins > 0:
-            output += total_time_mins + ' Mins'
+            output += str(total_time_mins) + ' Mins'
         return (output)
+    
+    
+    def plain_time(self, time_list):
+        default_output = 'Not Specified'
+        output = default_output
+        if time_list[0] > 0:
+            output = str(time_list[0]) + ' Days '
+        if time_list[1] > 0:
+            if output == default_output:
+                output = str(time_list[1]) + ' Hours '
+            else:
+                output += str(time_list[1]) + ' Hours '
+        if time_list[2] > 0:
+            if output ==default_output:
+                output = str(time_list[2]) + ' Mins '
+            else:
+                output += str(time_list[2]) + ' Mins '
+        return (output)
+        
+    @register.filter
+    def related_plain_time(obj, time_list):
+        return obj.get_related_plain_time(time_list)

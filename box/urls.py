@@ -25,5 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-urlpatterns += recpie_urls
-urlpatterns += recipe_urls
+
+urlpatterns += recpie_urls + recipe_urls
+
