@@ -10,7 +10,7 @@ from django.views.generic import View
 def AuthorView(request, id):
     html = "author.html"
     author = Author.objects.get(id=id)
-    recipes = Recipe.objects.filter(author=author).order_by('-date')
+    recipes = Recipe.objects.filter(author=author).order_by('-date_created')
     return render(request, html, {'author': author, 'recipes': recipes})
 
 # https://stackoverflow.com/questions/3222549/
