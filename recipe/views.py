@@ -27,7 +27,13 @@ class RecipeAddView(LoginRequiredMixin, View):
                 author=request.user,
                 title=data['title'],
                 description=data['description'],
-                servings=data['servings']
+                tags=data['tags'],
+                ingredients=data['ingredients'],
+                instructions=data['instructions'],
+                servings=data['servings'],
+                time_prep=data['time_prep'],
+                time_cook=data['time_cook'],
+                time_additional=data['time_additional'],
             )
             return HttpResponseRedirect(reverse('recipe', args=(recipe.id,)))
         return render(request, html, {"form": form})
