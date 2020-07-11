@@ -8,7 +8,7 @@ from django.views.generic import View
 
 
 def AuthorView(request, id):
-    html = "user.html"
+    html = "author.html"
     author = Author.objects.get(id=id)
     recipes = Recipe.objects.filter(author=author).order_by('-date')
     return render(request, html, {'author': author, 'recipes': recipes})
@@ -39,10 +39,10 @@ class RegisterView(View):
 @login_required
 def FollowView(request, id):
     request.user.following.add(Author.objects.get(id=id))
-    return HttpResponseRedirect(reverse('user', args=(id,)))
+    return HttpResponseRedirect(reverse('author', args=(id,)))
 
 
 @login_required
 def UnfollowView(request, id):
     request.user.following.remove(Author.objects.get(id=id))
-    return HttpResponseRedirect(reverse('user', args=(id,)))
+    return HttpResponseRedirect(reverse('author', args=(id,)))

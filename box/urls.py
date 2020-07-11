@@ -19,6 +19,7 @@ from . import views
 
 from recipe.urls import urlpatterns as recipe_urls
 from author.urls import urlpatterns as author_urls
+from authentication.urls import urlpatterns as authentication_urls
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
@@ -26,4 +27,4 @@ urlpatterns = [
 ]
 
 
-urlpatterns += recipe_urls + author_urls
+urlpatterns += recipe_urls + author_urls + authentication_urls

@@ -16,7 +16,7 @@
 {% endif %}
 
 <p>Following: {{ author.following.count }} | 
-Tweets: {{ author.tweet_set.count }}</p>
+Recipes: {{ author.recipe_set.count }}</p>
 
 
 <p>
@@ -24,7 +24,7 @@ Tweets: {{ author.tweet_set.count }}</p>
 <ul>
   {%for recipe in recipes%}
 
-  <!-- <li>{% include 'tweet_blob.html' %}</li> -->
+  <!-- <li>{% include 'recipe_blob.html' %}</li> -->
 
   {% endfor %}
 </ul>
