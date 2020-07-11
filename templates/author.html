@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% block content %}
+{% include 'nav.html' %}
+
+<h2>Author Details: {{ author.display_name }} (@{{ author.username }})</h2>
+
+{% if request.user.is_authenticated %}
+{% if request.user != author %}
+<p>
+  {% if author in request.user.following.all %}
+  <a href="/unfollow/{{ author.id }}">Unfollow This Author</a>
+  {% else %}
+  <a href="/follow/{{ author.id }}">Follow This Author</a>
+  {% endif %}
+</p>
+{% endif %}
+{% endif %}
+
+<p>Following: {{ author.following.count }} | 
+Tweets: {{ author.tweet_set.count }}</p>
+
+
+<p>
+  {% if recipes %}
+<ul>
+  {%for recipe in recipes%}
+
+  <!-- <li>{% include 'tweet_blob.html' %}</li> -->
+
+  {% endfor %}
+</ul>
+{% else %}
+
+<h6>No Recipes.</h6>
+{% endif %}
+</p>
+
+{% endblock %}

@@ -130,3 +130,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static_dev"),)
+
+AUTH_USER_MODEL = 'author.Author'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'

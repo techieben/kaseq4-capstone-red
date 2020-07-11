@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
-from recpie.urls import urlpatterns as recpie_urls
 from recipe.urls import urlpatterns as recipe_urls
+from author.urls import urlpatterns as author_urls
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
@@ -26,5 +26,4 @@ urlpatterns = [
 ]
 
 
-urlpatterns += recpie_urls + recipe_urls
-
+urlpatterns += recipe_urls + author_urls
