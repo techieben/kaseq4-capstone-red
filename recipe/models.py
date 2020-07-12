@@ -31,14 +31,14 @@ class ChoiceArrayField(ArrayField):
 
 class Recipe(models.Model):
     MEAL_CHOICES = [
-    ('HH','Heart-Healthy'),
-    ('QE','Quick&Easy'),
-    ('LC','Low-Calorie'),
-    ('GF','Gluten-Free'),
-    ('DA','Diabetic'),
-    ('VG','Vegetarian'),
+        ('HH', 'Heart-Healthy'),
+        ('QE', 'Quick&Easy'),
+        ('LC', 'Low-Calorie'),
+        ('GF', 'Gluten-Free'),
+        ('DA', 'Diabetic'),
+        ('VG', 'Vegetarian'),
     ]
-    
+
     title = models.CharField(max_length=120, unique=True)
     description = models.TextField(max_length=320)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='custom_user')
@@ -49,7 +49,8 @@ class Recipe(models.Model):
     )
     date_created = models.DateTimeField(default=timezone.now)
     # A list of CharField, or create a Tag class and make a many to many connection
-    tags = ChoiceArrayField(models.CharField(max_length=2, choices=MEAL_CHOICES), blank=True)
+    tags = ChoiceArrayField(models.CharField(
+        max_length=2, choices=MEAL_CHOICES), blank=True)
     ingredients = ArrayField(models.CharField(max_length=450))
     instructions = ArrayField(models.CharField(max_length=320))
     servings = models.IntegerField(default=1)
@@ -57,7 +58,7 @@ class Recipe(models.Model):
     time_prep = ArrayField(models.IntegerField(default=0), size=3)
     time_cook = ArrayField(models.IntegerField(default=0), size=3)
     time_additional = ArrayField(models.IntegerField(default=0), size=3)
-    
+
     REQUIRED_FIELDS = [
         'title',
         'description',
@@ -68,26 +69,29 @@ class Recipe(models.Model):
         'time_prep',
         'time_cook',
         'time_additional'
-        ]
+    ]
     # reviews will point to a Recipe
     # stretch goals photos, public/private recipe, (property) avg ratings from reviews
-    
+
     def __str__(self):
         return self.title
 
     @property
     def total_time(self):
-        total_time_days = self.time_prep[0] + self.time_cook[0] + self.time_additional[0]
-        total_time_hours = self.time_prep[1] + self.time_cook[1] + self.time_additional[1]
-        total_time_mins = self.time_prep[2] + self.time_cook[2] + self.time_additional[2]
+        total_time_days = self.time_prep[0] + \
+            self.time_cook[0] + self.time_additional[0]
+        total_time_hours = self.time_prep[1] + \
+            self.time_cook[1] + self.time_additional[1]
+        total_time_mins = self.time_prep[2] + \
+            self.time_cook[2] + self.time_additional[2]
         running = True
         while running:
             running = False
-            if total_time_mins >=60:
+            if total_time_mins >= 60:
                 total_time_hours += 1
                 total_time_mins -= 60
                 running = True
-            if total_time_hours >=24:
+            if total_time_hours >= 24:
                 total_time_days += 1
                 total_time_hours -= 24
                 running = True
@@ -99,8 +103,7 @@ class Recipe(models.Model):
         if total_time_mins > 0:
             output += str(total_time_mins) + ' Mins'
         return (output)
-    
-    
+
     def plain_time(self, time_list):
         default_output = 'Not Specified'
         output = default_output
@@ -112,13 +115,12 @@ class Recipe(models.Model):
             else:
                 output += str(time_list[1]) + ' Hours '
         if time_list[2] > 0:
-            if output ==default_output:
+            if output == default_output:
                 output = str(time_list[2]) + ' Mins '
             else:
                 output += str(time_list[2]) + ' Mins '
         return (output)
-        
+
     @register.filter
     def related_plain_time(obj, time_list):
         return obj.get_related_plain_time(time_list)
-    
