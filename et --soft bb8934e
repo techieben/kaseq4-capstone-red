@@ -1,0 +1,29 @@
+[33mcc80ffa[m[33m ([m[1;35mrefs/stash[m[33m)[m WIP on recipe-label: 907475c css needs alittle more work
+[33me04e746[m index on recipe-label: 907475c css needs alittle more work
+[33m907475c[m[33m ([m[1;31morigin/recipe-label[m[33m, [m[1;32mrecipe-label[m[33m)[m css needs alittle more work
+[33m2abe6b1[m[33m ([m[1;32mrecipe[m[33m)[m added postgres
+[33mbbcba37[m working on card
+[33m48e4a88[m added the label, broke the css
+[33m9a09314[m added the label, broke the css
+[33m5829c0d[m[33m ([m[1;31morigin/nutrition-label[m[33m, [m[1;32mnutrition-label[m[33m)[m fixed commit change issues
+[33m884cc45[m changes
+[33mb176474[m[33m ([m[1;31morigin/sqlite_to_postgres[m[33m, [m[1;32msqlite_to_postgres[m[33m)[m postgres seems to be working
+[33md213390[m[33m ([m[1;31morigin/recipe[m[33m)[m Commented out Arrayfield as it breaks things
+[33mcfafb26[m Merge remote-tracking branch 'origin/master' into recipe
+[33m4da9f42[m fixed math
+[33m09debf2[m[33m ([m[1;31morigin/dev[m[33m)[m Merge pull request #1 from benjmm/nutrition-label
+[33m71b58ad[m changed some comments and added in favorites into recipe model
+[33m48649b0[m basic recipe model setup
+[33mf1ad155[m html/Css nutrition added
+[33m146e021[m[33m ([m[1;32mdev[m[33m)[m added minor changes index.html, removed excess code
+[33mbb8934e[m removed user from class author
+[33m5740885[m removed user
+[33m2707445[m removed measurements
+[33me9226c1[m added meal_option
+[33m78aab7e[m added meal options, email
+[33m95bb5d4[m added email field
+[33m102838f[m added .venv to .gitignore
+[33ma4990bc[m added .gitignore
+[33mba076ec[m wired up and recpie/author working
+[33m19943ec[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m wired up and recpie/author working
+[33m328c1d8[m[33m ([m[1;31morigin/notifications[m[33m)[m Initial commit

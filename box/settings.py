@@ -80,7 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'capstone',
-        'USER': 'capstone_user',
+        'USER': 'postgres',
         'PASSWORD': 'capstone_red',
         'HOST': 'localhost',
         'PORT': '',

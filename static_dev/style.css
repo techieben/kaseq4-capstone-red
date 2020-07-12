@@ -54,3 +54,27 @@ h4 {
 .post h2 a:visited {
   color: #000000;
 }
+
+/* recipe hacker main page search bar */
+div.search-container {
+  float: right;
+}
+
+div[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+div.search-container button {
+  float: right;
+  margin-right: 16px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+}
+
+div.search-container button:hover {
+  background: #ccc;
+}
