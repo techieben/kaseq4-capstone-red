@@ -15,14 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from . import views
 
 from recipe.urls import urlpatterns as recipe_urls
 from user.urls import urlpatterns as user_urls
 
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='index'),
+    path('', views.IndexView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
 ]
 
-urlpatterns += recpie_urls + recipe_urls + user_urls
+urlpatterns += recipe_urls + user_urls

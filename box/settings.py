@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'crispy_forms',
     
-    'recpie',
     'recipe',
     'user'
 ]
@@ -64,7 +63,7 @@ ROOT_URLCONF = 'box.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR,'templates/local')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,7 +86,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'capstone',
-        'USER': 'postgres',
+        'USER': 'capstone_user',
         'PASSWORD': 'capstone_red',
         'HOST': 'localhost',
         'PORT': '',
@@ -136,9 +135,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static_dev"),)
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

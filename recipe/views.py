@@ -5,9 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 
 
-def RecipeView(request, id):
+def RecipeView(request, title):
     html = "recipe.html"
-    recipe = Recipe.objects.get(id=id)
+    recipe = Recipe.objects.get(title=title)
     return render(request, html, {'recipe': recipe, })
 
 
@@ -35,5 +35,5 @@ class RecipeAddView(LoginRequiredMixin, View):
                 time_cook=data['time_cook'],
                 time_additional=data['time_additional'],
             )
-            return HttpResponseRedirect(reverse('recipe', args=(recipe.id,)))
+            return HttpResponseRedirect(reverse('recipe', args=(recipe.title,)))
         return render(request, html, {"form": form})
