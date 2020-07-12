@@ -42,6 +42,11 @@ class Recipe(models.Model):
     title = models.CharField(max_length=120, unique=True)
     description = models.TextField(max_length=320)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='custom_user')
+    favorites = models.ManyToManyField(
+        CustomUser,
+        blank=True,
+        related_name='favorites'
+    )
     date_created = models.DateTimeField(default=timezone.now)
     # A list of CharField, or create a Tag class and make a many to many connection
     tags = ChoiceArrayField(models.CharField(max_length=2, choices=MEAL_CHOICES), blank=True)

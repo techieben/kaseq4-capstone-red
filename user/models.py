@@ -17,7 +17,8 @@ class CustomUser(AbstractUser):
         symmetrical=False,
         related_name='following_other'
     )
-    REQUIRED_FIELDS = ['email', 'display_name']
+    
+    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
         return self.email

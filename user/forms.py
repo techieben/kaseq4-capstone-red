@@ -13,12 +13,14 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'email')
-    
-class SignupForm(forms.Form):
-    display_name = forms.CharField(max_length=50)
-    bio = forms.CharField(max_length=450, widget=forms.Textarea)
-    
-    def signup(self, request, user):
-        user.display_name = self.cleaned_data['display_name']
-        user.bio = self.cleaned_data['bio']
-        user.save()
+
+
+# For extra fields in Sign up form if wanted also uncomment in settings.py
+# For a completely cusotm Sign up form add to ACCOUNT_FORMS in settings. py instead
+
+# class SignupForm(forms.Form):
+#     display_name = forms.CharField(max_length=50)
+# 
+#     def signup(self, request, user):
+#         user.display_name = self.cleaned_data['display_name']
+#         user.save()

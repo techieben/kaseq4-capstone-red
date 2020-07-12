@@ -157,13 +157,18 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = ("none")
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_SIGNUP_FORM_CLASS = 'user.forms.SignupForm'
+ACCOUNT_EMAIL_VERIFICATION = ("mandatory")
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
+# for adding extra fields in signup form also uncomment in user/forms
+# ACCOUNT_SIGNUP_FORM_CLASS = 'user.forms.SignupForm'
+# for completely custom forms
+# ACCOUNT_FORMS = {'signup': 'user.forms.SignupForm'}
 ACCOUNT_LOGOUT_ON_GET = True
 
 LOGIN_REDIRECT_URL = 'home'
