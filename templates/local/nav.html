@@ -1,5 +1,4 @@
-{% if request.user.is_authenticated %}
-  {% comment %} Navbar start {% endcomment %}
+{% comment %} Navbar start {% endcomment %}
     <div id="topnav" class="search-container">
       <form action="/action_page.php">
         <input type="text" placeholder="Search.." name="search">
@@ -7,6 +6,9 @@
     <button class="search-glass-button" type="submit"><i class="search-glass" aria-hidden="true" >&#128270;</i></button>
     </div>
   {% comment %} Navbar end {% endcomment %}
+
+{% if request.user.is_authenticated %}
+  
 
   <p>
     Logged in as
