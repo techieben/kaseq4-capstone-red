@@ -4,7 +4,7 @@
   <a href="/profile/{{request.user.username}}/">{{ request.user.username }}</a>
 </p>
 <p>
-  <a href="/">Notifications {{ request.user.notification_set.count }}</a> |
+  <a href="/">Notifications {% if request.user.notification_set.count %} ({{ request.user.notification_set.count }}) {% endif %} </a> | 
   <a href="/profile/{{ request.user.username }}">My Profile</a> |
   <a href="/recipe_add/">Add a Recipe</a> | <a href="/">Favorite Recipes</a> |
   <!-- <a href="{% url 'account_email' %}">Change E-mail</a> | -->
