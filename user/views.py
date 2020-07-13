@@ -22,7 +22,9 @@ class ProfileEditView(View):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(reverse('profile_edit'))
+            return HttpResponseRedirect(reverse('profile_edit'))
+        else: 
+            raise
             
 
 
