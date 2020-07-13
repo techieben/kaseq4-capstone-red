@@ -2,6 +2,7 @@ from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from user.models import CustomUser
+from user.forms import CustomUserChangeForm
 from recipe.models import Recipe
 
 
@@ -12,10 +13,17 @@ def ProfileView(request, username):
     recipes = Recipe.objects.filter(author=profile).order_by('-date_created')
     return render(request, html, {'profile': profile, 'recipes': recipes})
 
-def ProfileEditView(request):
+class ProfileEditView(View):
     html = "profile_edit.html"
-    profile = request.user
-    
+    def get(self, request):
+        form = CustomUserChangeForm(instance=request.user)
+        return render(request, 'profile_edit.html', {'form': form})
+    def post(self, request):
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(reverse('profile_edit'))
+            
 
 
 @login_required

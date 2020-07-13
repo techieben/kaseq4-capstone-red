@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
-    display_name = models.CharField(max_length=50)
     bio = models.CharField(max_length=450)
     followers = models.ManyToManyField(
         'self',
@@ -21,4 +20,4 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = ['email']
 
     def __str__(self):
-        return self.email
+        return self.username

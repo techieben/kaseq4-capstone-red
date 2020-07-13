@@ -1,12 +1,12 @@
 {% extends 'base.html' %} {% block content %}
 {% include 'nav.html' %}
 
-<h2>Profile Details: {{ profile.username }}</h2>
+<h2> {{ profile.username }}</h2>
 
 
 {% if request.user.is_authenticated %}
     {% if request.user == profile %}
-        <a href="/profile/edit"> Edit Profile </a>
+        <a href="/profile_edit"> Edit Profile </a>
         <br />
         <br />
     {% else %}
