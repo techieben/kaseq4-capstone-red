@@ -5,10 +5,14 @@ from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser
 
-class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
-    model = CustomUser
-    list_display = ['email', 'username',]
 
-admin.site.register(CustomUser, CustomUserAdmin)
+# Custom UserAdmin Doesn't work as of right now.
+# class CustomUserAdmin(UserAdmin):
+#     add_form = CustomUserForm
+#     form = CustomUserChangeForm
+#     list_display = ('username', 'email')
+#     class Meta:
+#         model = CustomUser
+
+
+admin.site.register(CustomUser, UserAdmin)
