@@ -1,4 +1,6 @@
 from django import forms
+from django.shortcuts import HttpResponse
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from user.models import CustomUser
 
@@ -21,11 +23,6 @@ class CustomUserChangeForm(UserChangeForm):
             if field:
                 if type(field.widget) in (forms.TextInput, forms.DateInput):
                     field.widget = forms.TextInput(attrs={'placeholder': field.label})
-    def clean_username(self):
-        username = self.cleaned_data['username']
-        if CustomUser.objects.exclude(pk=self.instance.pk).filter(username=username).count() > 0:
-            raise forms.ValidationError(u'Username "%s" is already in use.' % username)
-        return username
     
     class Meta:
         model = CustomUser
