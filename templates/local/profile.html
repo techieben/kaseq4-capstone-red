@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block content %}
+{% include 'nav.html' %}
+
+<h2> {{ profile.username }}</h2>
+
+
+{% if request.user.is_authenticated %}
+    {% if request.user == profile %}
+        <a href="/profile_edit"> Edit Profile </a>
+        <br />
+        <br />
+    {% else %}
+    <p>
+      {% if profile in request.user.following.all %}
+        <a href="/unfollow/{{ profile.username }}">Unfollow This profile</a>
+      {% else %}
+        <a href="/follow/{{ profile.username }}">Follow This profile</a>
+      {% endif %}
+    </p>
+    {% endif %}
+{% endif %}
+
+<p>
+    Followers: {{ profile.followers.count }} | 
+    Recipes: {{ recipes|length }}
+</p>
+
+<p>
+    {% if profile.bio != '' %}
+        Bio: {{ profile.bio }}
+    {% endif %}
+</p>
+
+<p>
+    {% if recipes %}
+        <ul>
+          {%for recipe in recipes%}
+            <li><a href='/recipe/{{ recipe.title }}'>{{ recipe.title }}</a></li>
+          {% endfor %}
+        </ul>
+    {% else %}
+        <h6>No Recipes.</h6>
+    {% endif %}
+</p>
+
+{% endblock %}

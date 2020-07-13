@@ -1,6 +1,6 @@
 from django.db import models
 from django import forms
-from author.models import Author
+from user.models import CustomUser
 from django.utils import timezone
 from django.contrib.postgres.fields import ArrayField
 # from django.contrib.postgres.fields import JSONField
@@ -41,10 +41,12 @@ class Recipe(models.Model):
 
     title = models.CharField(max_length=120, unique=True)
     description = models.TextField(max_length=320)
-
-    author = models.ForeignKey(
-        Author, on_delete=models.CASCADE, related_name='author')
-
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='custom_user')
+    favorites = models.ManyToManyField(
+        CustomUser,
+        blank=True,
+        related_name='favorites'
+    )
     date_created = models.DateTimeField(default=timezone.now)
     # A list of CharField, or create a Tag class and make a many to many connection
     tags = ChoiceArrayField(models.CharField(

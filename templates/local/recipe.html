@@ -1,0 +1,69 @@
+{% extends 'base.html' %} {% block content %} {% include 'nav.html' %}
+
+<h2>Recipe Detail</h2>
+
+<ul>
+  <li>
+    Title: {{recipe.title}}
+  </li>
+</ul>
+<ul>
+  <li>
+    Author: <a href="/profile/{{ recipe.author.username }}">{{recipe.author.username}}</a> | Created on
+    {{recipe.date_created}}
+  </li>
+  <li>
+    Tags:
+    <ul>
+      {% for tag in recipe.tags %}
+      <li>
+        {{tag}}
+      </li>
+      {% endfor %}
+    </ul>
+  </li>
+  <li>
+    Description: {{recipe.description}}
+  </li>
+  <li>
+    # of servings: {{recipe.servings}}
+  </li>
+  <li>
+    <!-- will set up custom tag to make this easier -->
+    <!-- Prep Time:  recipe|related_plain_time recipe.time_prep  -->
+    Prep Time: {{recipe.time_prep}}
+  </li>
+  <li>
+    <!-- will set up custom tag to make this easier -->
+    <!-- Prep Time:  recipe|related_plain_time recipe.time_prep  -->
+    Cook Time: {{recipe.time_cook}}
+  </li>
+  <li>
+    <!-- will set up custom tag to make this easier -->
+    <!-- Prep Time:  recipe|related_plain_time recipe.time_prep  -->
+    Additional Time: {{recipe.time_additional}}
+  </li>
+  <!-- Total Time -->
+  <li>
+    Ingredients:
+    <ul>
+      {% for ingredient in recipe.ingredients %}
+      <li>
+        {{ingredient}}
+      </li>
+      {% endfor %}
+    </ul>
+  </li>
+  <li>
+    Instructions:
+    <ul>
+      {% for step in recipe.instructions %}
+      <li>
+        {{step}}
+      </li>
+      {% endfor %}
+    </ul>
+  </li>
+</ul>
+
+{% endblock %}
