@@ -21,18 +21,11 @@
     />
   </head>
   <body>
-    {% block body %} {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-
-    <div>
+    {% block body %}
+    <div class="page-header">
+      <h1><a href="/">Recipe Hacker</a></h1>
+      {% include 'nav.html' %}
+    {% comment %} <div>
       <strong>Menu:</strong>
       <ul>
         {% if user.is_authenticated %}
@@ -43,7 +36,28 @@
         <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
         {% endif %}
       </ul>
+    </div> {% endcomment %}
     </div>
-    {% block content %} {% endblock %} {% endblock %} {% block extra_body %} {% endblock %}
+    <div class="content container">
+      <div class="row">
+        <div class="col-md-8">
+          {% if messages %}
+          <div>
+            <ul>
+              {% for message in messages %}
+              <li>{{message}}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </div> 
+    {% endblock %}
+    {% block extra_body %}
+    {% endblock %}
   </body>
 </html>
+
