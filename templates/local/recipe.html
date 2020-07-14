@@ -1,12 +1,28 @@
 {% extends 'base.html' %} {% block content %}
 
-<h2>Recipe Detail</h2>
+<h2>{{recipe.title}}</h2>
 
-<ul>
-  <li>
-    Title: {{recipe.title}}
-  </li>
-</ul>
+{% if request.user.is_authenticated %}
+  <p>
+    {% if request.user != recipe.author %}
+      <a href="/recipe_review"> Review Recipe </a> | 
+    {% endif %}
+    {% if recipe in request.user.favorites.all %}
+      <a href="/unfavorite/{{ recipe.title }}">Unfavorite This Recipe</a>
+    {% else %}
+      <a href="/favorite/{{ recipe.title }}">Favorite This Recipe</a>
+    {% endif %}
+    {% if request.user == recipe.author %}
+      | <a href="/recipe_edit"> Edit Recipe </a>
+    {% endif %}
+    | <a href="/recipe_nutrition"> Nutrition Info </a>
+  </p>
+{% endif %}
+
+<p>
+  Rating: 5 Stars | Favorited by {{ recipe.favorited_by.count }} users 
+<p>
+
 <ul>
   <li>
     Author:
