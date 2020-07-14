@@ -1,5 +1,15 @@
 {% extends 'base.html' %} {% block content %}
 
-<!-- <h2>Welcome to Recipe Hacker</h2> -->
+<p>
+    {% if recipes %}
+        <ul>
+          {%for recipe in recipes%}
+            <li><a href='/recipe/{{ recipe.title }}'>{{ recipe.title }}</a></li>
+          {% endfor %}
+        </ul>
+    {% else %}
+        <h6>No Recipes.</h6>
+    {% endif %}
+</p>
 
 {% endblock %}
