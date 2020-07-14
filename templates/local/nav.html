@@ -1,18 +1,32 @@
+{% comment %} Navbar start {% endcomment %}
+    <div id="topnav" class="search-container">
+      <form action="/action_page.php">
+        <input type="text" placeholder="Search.." name="search">
+      </form>
+    <button class="search-glass-button" type="submit"><i class="search-glass" aria-hidden="true" >&#128270;</i></button>
+    </div>
+  {% comment %} Navbar end {% endcomment %}
+
 {% if request.user.is_authenticated %}
-<!-- <p>
-  You are currently logged in as
-  <a href="/user/{{request.user.id}}/"
-    >{{ request.user.display_name }} (@{{ request.user.username }})</a
-  >
-</p> -->
-<p>
-  <!-- {% if request.path != "/home/" %} <a href="/home">Home</a> | {% endif %} -->
-  <a href="/">Notifications {{ request.user.notification_set.count }}</a> |
+  
+
+  <p>
+    Logged in as
+    <a href="/profile/{{request.user.username}}/">{{ request.user.username }}</a>
+    
+  </p>
+  <p>
+
+  <a href="/">Notifications {% if request.user.notification_set.count %} ({{ request.user.notification_set.count }}) {% endif %} </a> | 
   <a href="/profile/{{ request.user.username }}">My Profile</a> |
   <a href="/recipe_add/">Add a Recipe</a> | <a href="/">Favorite Recipes</a> |
-  <a href="/logout/">Log Out</a>
+  <!-- <a href="{% url 'account_email' %}">Change E-mail</a> | -->
+  <a href="{% url 'account_logout' %}">Sign Out</a>
+  
 </p>
-
 {% else %}
-<p><a href="/login/">Log In</a> | <a href="/signup/">Sign Up</a></p>
+<p>
+  <a href="{% url 'account_login' %}">Sign In</a> |
+  <a href="{% url 'account_signup' %}">Sign Up</a>
+</p>
 {% endif %}

@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %} {% include 'nav.html' %}
+{% extends 'base.html' %} {% block content %}
 
 <h2>Recipe Detail</h2>
 
@@ -9,8 +9,11 @@
 </ul>
 <ul>
   <li>
-    Author: <a href="/profile/{{ recipe.author.username }}">{{recipe.author.username}}</a> | Created on
-    {{recipe.date_created}}
+    Author:
+    <a href="/profile/{{ recipe.author.username }}"
+      >{{recipe.author.username}}</a
+    >
+    | Created on {{recipe.date_created}}
   </li>
   <li>
     Tags:
