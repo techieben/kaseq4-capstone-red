@@ -1,11 +1,15 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
 
 <h2>{{recipe.title}}</h2>
 
 {% if request.user.is_authenticated %}
   <p>
     {% if request.user != recipe.author %}
-      <a href="/recipe_review"> Review Recipe </a> | 
+      <a href="/recipe_review"> Review Recipe </a> |
     {% endif %}
     {% if recipe in request.user.favorites.all %}
       <a href="/unfavorite/{{ recipe.title }}">Unfavorite This Recipe</a>
@@ -20,7 +24,7 @@
 {% endif %}
 
 <p>
-  Rating: 5 Stars | Favorited by {{ recipe.favorited_by.count }} users 
+  Rating: 5 Stars | Favorited by {{ recipe.favorited_by.count }} users
 <p>
 
 <ul>
@@ -84,5 +88,32 @@
     </ul>
   </li>
 </ul>
+
+<div>
+    <h4>Write a Review</h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </form>
+</div>
+
+<div>
+    {% for review in reviews %}
+        <div>
+            <ul>
+                <li>
+                    {{review.title}} | {{review.author}} | {{review.rating}}
+                </li>
+                <li>
+                    {{review.content}}
+                </li>
+                <li>
+                    <a>Upvote: {{review.upvotes}}</a> | <a>Downvote: {{review.downvotes}}</a>
+                </li>
+            </ul>
+        </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
