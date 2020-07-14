@@ -10,5 +10,6 @@ from django.shortcuts import render
 
 def IndexView(request):
     html = 'index.html'
-    recipes = Recipe.objects.all().order_by('-date_created')[:10]
+    # recipes = Recipe.objects.all().order_by('-date_created')[:10]
+    recipes = Recipe.objects.all()
     return render(request, html, {'recipes': recipes})
