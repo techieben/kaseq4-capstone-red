@@ -1,4 +1,5 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from .models import Recipe
 from .forms import RecipeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -37,3 +38,15 @@ class RecipeAddView(LoginRequiredMixin, View):
             )
             return HttpResponseRedirect(reverse('recipe', args=(recipe.title,)))
         return render(request, html, {"form": form})
+
+
+@login_required
+def FavoriteView(request, title):
+    Recipe.objects.get(title=title).favorited_by.add(request.user)
+    return HttpResponseRedirect(reverse('recipe', args=(title,)))
+
+
+@login_required
+def UnfavoriteView(request, title):
+    Recipe.objects.get(title=title).favorited_by.remove(request.user)
+    return HttpResponseRedirect(reverse('recipe', args=(title,)))
