@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
+from django import forms
 from user.models import CustomUser
 from user.forms import CustomUserChangeForm
 from recipe.models import Recipe
@@ -22,10 +23,7 @@ class ProfileEditView(View):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('profile_edit'))
-        else: 
-            raise
-            
+        return render(request, self.html, {'form': form})
 
 
 @login_required
