@@ -41,8 +41,9 @@ class Recipe(models.Model):
 
     title = models.CharField(max_length=120, unique=True)
     description = models.TextField(max_length=320)
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='custom_user')
-    favorites = models.ManyToManyField(
+    author = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name='custom_user')
+    favorited_by = models.ManyToManyField(
         CustomUser,
         blank=True,
         related_name='favorites'
