@@ -32,12 +32,10 @@ class ProfileEditView(View):
 @login_required
 def FollowView(request, username):
     request.user.following.add(CustomUser.objects.get(username=username))
-    # CustomUser.objects.get(username=username).followers.add(request.user)
     return HttpResponseRedirect(reverse('profile', args=(username,)))
 
 
 @login_required
 def UnfollowView(request, username):
     request.user.following.remove(CustomUser.objects.get(username=username))
-    # CustomUser.objects.get(username=username).followers.remove(request.user)
     return HttpResponseRedirect(reverse('profile', args=(username,)))
