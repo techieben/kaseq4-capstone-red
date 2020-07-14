@@ -12,6 +12,26 @@ def RecipeView(request, title):
     return render(request, html, {'recipe': recipe, })
 
 
+def FavoriteListView(request, sort):
+    html = 'favorites.html'
+    print(request)
+    print("sort: ", sort)
+    if sort == 'title':
+        recipes = Recipe.objects.order_by('title')
+    elif sort == 'time_prep':
+        recipes = Recipe.objects.order_by('time_prep')
+    elif sort == 'date_old':
+        recipes = Recipe.objects.order_by('date_created')
+    else:
+        recipes = Recipe.objects.order_by('-date_created')
+    print(recipes)
+    return render(request, html, {'recipes': recipes})
+
+    # notification_ids = user.notification_set.values_list('tweet_id', flat=True)
+    # tweets = Tweet.objects.filter(
+    #     id__in=notification_ids).order_by('-date')[:10]
+
+
 class RecipeAddView(LoginRequiredMixin, View):
 
     def get(self, request):
@@ -36,7 +56,8 @@ class RecipeAddView(LoginRequiredMixin, View):
                 time_cook=data['time_cook'],
                 time_additional=data['time_additional'],
             )
-            return HttpResponseRedirect(reverse('recipe', args=(recipe.title,)))
+            return HttpResponseRedirect(reverse('recipe',
+                                                args=(recipe.title,)))
         return render(request, html, {"form": form})
 
 
