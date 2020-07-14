@@ -141,3 +141,47 @@ i.search-glass{
   }
 }
 /* navbar end */
+
+/* recipe labels beginning */
+div#recipe-card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+div.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 30%;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  flex-direction: row;
+}
+
+.card button {
+  border: none;
+  background-color:beige;
+  display: table-cell;
+  text-align: center;
+  vertical-align: bottom;
+  cursor: pointer;
+  width: 300px;
+  font-size: 18px;
+  position: relative;
+  padding: 2%;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+
+img {
+  width: 250px;
+}
+
+#card-star-container {
+  margin-top: 2vw;
+  display: table;
+}
+/* recipe labels end */

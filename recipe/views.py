@@ -1,5 +1,5 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
-from .models import Recipe
+from .models import Recipe, RecipeCard
 from .forms import RecipeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
@@ -10,6 +10,17 @@ def RecipeView(request, title):
     recipe = Recipe.objects.get(title=title)
     return render(request, html, {'recipe': recipe, })
 
+def RecipeCard(request, form):
+    html = "recipe_card.html"
+    form = RecipeForm()
+    if form.is_valid():
+        data = form.cleaned_data
+        recipe = Recipe.objects.create(
+            title = Recipe.objects.get({'form': form})
+            recipe_picture = Recipe.objects.get({'form': form})
+            )
+        return HttpResponseRedirect(reverse('recipe', args=(recipe.title,)))
+    return render(request, html, {'title': title, 'recipe_picture': recipe_picture})
 
 class RecipeAddView(LoginRequiredMixin, View):
 

@@ -20,6 +20,7 @@
   <a href="/">Notifications {% if request.user.notification_set.count %} ({{ request.user.notification_set.count }}) {% endif %} </a> | 
   <a href="/profile/{{ request.user.username }}">My Profile</a> |
   <a href="/recipe_add/">Add a Recipe</a> | <a href="/">Favorite Recipes</a> |
+  <a href="/recipe_card/">View our Recipes!</a> |
   <!-- <a href="{% url 'account_email' %}">Change E-mail</a> | -->
   <a href="{% url 'account_logout' %}">Sign Out</a>
   
