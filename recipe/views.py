@@ -10,7 +10,6 @@ from django.views.generic import View
 
 
 class RecipeView(View):
-
     def get(self, request, title):
         html = "recipe.html"
         recipe = Recipe.objects.get(title=title)
@@ -39,14 +38,14 @@ class RecipeView(View):
 
         return render(request, html, {'recipe': recipe, 'reviews': reviews, 'form': form})
 
-def RecipeCard(request, form):
+def RecipeCard(request):
     html = "recipe_card.html"
     form = RecipeForm()
     if form.is_valid():
         data = form.cleaned_data
-        recipe = Recipe.objects.create(
-            title = Recipe.objects.get({'form': form}),
-            recipe_picture = Recipe.objects.get({'form': form})
+        recipe = Recipe.objects.get(
+            title = data['title'],
+            recipe_picture = data['recipe_picture']
             )
         return HttpResponseRedirect(reverse('recipe', args=(recipe.title,)))
     return render(request, html, {'form': form})
