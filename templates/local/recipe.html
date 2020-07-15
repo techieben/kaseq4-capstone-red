@@ -1,11 +1,15 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
 
 <h2>{{recipe.title}}</h2>
 
 {% if request.user.is_authenticated %}
   <p>
     {% if request.user != recipe.author %}
-      <a href="/recipe_review"> Review Recipe </a> | 
+      <a href="/recipe_review"> Review Recipe </a> |
     {% endif %}
     {% if recipe in request.user.favorites.all %}
       <a href="/unfavorite/{{ recipe.title }}">Unfavorite This Recipe</a>
@@ -20,7 +24,7 @@
 {% endif %}
 
 <p>
-  Rating: 5 Stars | Favorited by {{ recipe.favorited_by.count }} users 
+  Rating: 5 Stars | Favorited by {{ recipe.favorited_by.count }} users
 <p>
 
 <ul>
@@ -84,5 +88,42 @@
     </ul>
   </li>
 </ul>
+<div class="Comments-Container">
+    <div class="New-Review-Container">
+        <h4>Write a Review</h4>
+        <form action="" method="post">
+            {% csrf_token %}
+            <!-- {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %} -->
+            {{ form|crispy }}
+            <input type="submit" class="btn btn-primary" value="Submit" />
+        </form>
+    </div>
+
+    <div class="reviews-list">
+        {% for review in reviews %}
+            <div class="review">
+                <ul>
+                    <li>
+                        {{review.title}} | {{review.author}} | {{review.rating}}
+                    </li>
+                    <li>
+                        {{review.content}}
+                    </li>
+                    <li>
+                        <a class="btn btn-primary" href="/review_like/{{review.id}}">Upvote: {{review.upvotes}}</a> |
+                        <a class="btn btn-primary" href="/review_unlike/{{review.id}}">Downvote: {{review.downvotes}}</a>
+                        {% if review.author == request.user %}
+                            | <a class="btn btn-primary" href="/review_edit/{{review.id}}">Edit</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}
