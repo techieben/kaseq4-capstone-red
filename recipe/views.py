@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse, HttpResponseRedirect
+from django.shortcuts import render, reverse, HttpResponseRedirect, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Recipe
 from user.models import CustomUser
@@ -83,6 +83,20 @@ class RecipeAddView(LoginRequiredMixin, View):
             return HttpResponseRedirect(reverse('recipe',
                                                 args=(recipe.title,)))
         return render(request, html, {"form": form})
+
+
+@login_required
+def RecipeEditView(request, title):
+    recipe = get_object_or_404(Recipe, title=title)
+    if request.user == recipe.author or request.user.is_superuser:
+        if request.method == 'POST':
+            form = RecipeForm(request.POST, instance=recipe)
+            form.save()
+            return HttpResponseRedirect(reverse('recipe', args=(title,)))
+
+        form = RecipeForm(instance=recipe)
+        return render(request, "form.html", {'form': form})
+    return HttpResponseRedirect(reverse('recipe', args=(title,)))
 
 
 @login_required
