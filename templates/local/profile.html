@@ -11,16 +11,16 @@
     {% else %}
     <p>
       {% if profile in request.user.following.all %}
-        <a href="/unfollow/{{ profile.username }}">Unfollow This profile</a>
+        <a href="/unfollow/{{ profile.username }}">Unfollow This User</a>
       {% else %}
-        <a href="/follow/{{ profile.username }}">Follow This profile</a>
+        <a href="/follow/{{ profile.username }}">Follow This User</a>
       {% endif %}
     </p>
     {% endif %}
 {% endif %}
 
 <p>
-    Followers: {{ profile.followers.count }} | 
+    Followers: {{ profile.followed_by.count }} | 
     Recipes: {{ recipes|length }}
 </p>
 
