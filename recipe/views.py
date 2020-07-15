@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import Recipe
+from user.models import CustomUser
 from .forms import RecipeForm
 from review.models import Review
 from review.forms import AddReviewForm
@@ -8,17 +9,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 
 
-# def RecipeView(request, title):
-#     html = "recipe.html"
-#     recipe = Recipe.objects.get(title=title)
-#     return render(request, html, {'recipe': recipe, })
 class RecipeView(View):
 
     def get(self, request, title):
         html = "recipe.html"
         recipe = Recipe.objects.get(title=title)
-        reviews = Review.objects.filter(recipe=recipe.id)
-        form = AddReviewForm()
+        reviews = Review.objects.filter(recipe=recipe)
+        form = AddReviewForm(initial={'recipe': Recipe.objects.get(
+            title=title), 'author': request.user})
         return render(request, html, {'recipe': recipe, 'reviews': reviews, 'form': form})
 
     def post(self, request, title):
@@ -36,7 +34,8 @@ class RecipeView(View):
                 author=request.user,
                 recipe=recipe
             )
-            form = AddReviewForm()
+            form = AddReviewForm(initial={'recipe': Recipe.objects.get(
+                title=title), 'author': request.user})
 
         return render(request, html, {'recipe': recipe, 'reviews': reviews, 'form': form})
 

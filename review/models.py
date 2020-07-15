@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 from django.core.validators import MaxValueValidator, MinValueValidator
 from user.models import CustomUser
 from recipe.models import Recipe
@@ -7,10 +8,7 @@ from recipe.models import Recipe
 
 
 class Review(models.Model):
-    class Meta:
-        unique_together = (('author', 'recipe'),)
-
-    title = models.CharField(max_length=120, unique=True)
+    title = models.CharField(max_length=120)
     rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     content = models.TextField(max_length=320)
     recipe = models.ForeignKey(
@@ -32,6 +30,9 @@ class Review(models.Model):
         'content',
         'author'
     ]
+
+    class Meta:
+        unique_together = ('author', 'recipe')
 
     def __str__(self):
         return self.title
