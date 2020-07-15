@@ -3,15 +3,17 @@
   <div id="recipe-card-container">
 
     <div class="card">
-      <a href ="https://www.simplyrecipes.com/wp-content/uploads/2019/09/easy-pepperoni-pizza-lead-4-600x840.jpg"><h3 id="recipe-title-card">Wild Pizza</h3>
+    {% for recipe in recipes %}
+      <a href ='/recipe/{{ recipe.title }}'><h3 id="recipe-title-card">{{ recipe.title }}</h3>
+      {% endfor %}
       <img src="https://www.simplyrecipes.com/wp-content/uploads/2019/09/easy-pepperoni-pizza-lead-4-600x840.jpg" alt="wildest pizza" width="225" height="200">
       </a>
       <div>
-      <p id="star"><button>&#9733; &#9733; &#9733; &#9734; &#9734;</button></p>
+      <p id="star"><button>Rating:{{review.rating}}stars</button></p>
       </div>
     </div>
 
-    <div class="card">
+    {% comment %} <div class="card">
       <a href ="https://i.imgur.com/mgF1bk5.jpg"><h3 id="recipe-title-card">Wilder Pizza</h3>
       <img src="https://www.justataste.com/wp-content/uploads/2020/04/recipe-pizza-dough-without-yeast.jpg" alt="wilder pizza" width="225" height="200">
       </a>
@@ -54,8 +56,6 @@
       </a>
       <div>
       <p id="star"><button>&#9733; &#9733; &#9733; &#9734; &#9734;</button></p>
-      </div>
+      </div> {% endcomment %}
     </div>
-  {% comment %} </div>
-</body>
-</html> {% endcomment %}
+  

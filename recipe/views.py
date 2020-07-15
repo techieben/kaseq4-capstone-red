@@ -38,12 +38,23 @@ class RecipeView(View):
 
         return render(request, html, {'recipe': recipe, 'reviews': reviews, 'form': form})
 
+# def RecipeCard(request):
+#     if request.POST:
+#         form = RecipeCard(request.POST)
+#         new_recipe_card = form.save()
+#     else:
+#         form = RecipeCard()
+#     context = {'form':form}
+#     template = 'recipe_card.html'
+#     return(render, template, context)
+
+# NEEDS TO CREATE A NEW CARD EVERYTIME!
 def RecipeCard(request):
     html = "recipe_card.html"
     form = RecipeForm()
     if form.is_valid():
         data = form.cleaned_data
-        recipe = Recipe.objects.get(
+        recipe = Recipe.objects.create(
             title = data['title'],
             recipe_picture = data['recipe_picture']
             )
