@@ -1,7 +1,7 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
-from django import forms
+# from django import forms
 from user.models import CustomUser
 from user.forms import CustomUserChangeForm
 from recipe.models import Recipe
