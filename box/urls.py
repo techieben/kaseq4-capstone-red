@@ -22,7 +22,6 @@ from user.urls import urlpatterns as user_urls
 
 urlpatterns = [
     path('', views.IndexView, name='home'),
-    # path('', views.IndexView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
 ]
