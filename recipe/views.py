@@ -73,6 +73,7 @@ def RecipeCard(request):
             title = data['title'],
             recipe_picture = data['recipe_picture']
             )
+        recipe.save()
         return HttpResponseRedirect(reverse('recipe', args=(recipe.title,)))
     return render(request, html, {'form': form})
 
