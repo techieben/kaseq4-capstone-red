@@ -16,13 +16,15 @@
     <div>
         <ul>
             {% for recipe in recipes %}
-            <li><a href='/recipe/{{ recipe.title }}'>{{ recipe.title }}</a></li>
+            {% comment %} <li><a href='/recipe/{{ recipe.title }}'>{{ recipe.title }}</a></li> {% endcomment %}
             {% endfor %}
         </ul>
+        {% include 'recipe_card.html' %}
     </div>
     {% else %}
         <h6>No Recipes.</h6>
     {% endif %}
 </p>
+
 
 {% endblock %}

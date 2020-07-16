@@ -20,6 +20,7 @@ from . import views
 from recipe.urls import urlpatterns as recipe_urls
 from user.urls import urlpatterns as user_urls
 from review.urls import urlpatterns as review_urls
+from django.conf.urls import handler404, handler500
 
 urlpatterns = [
     path('', views.IndexView, name='home'),
@@ -28,3 +29,7 @@ urlpatterns = [
 ]
 
 urlpatterns += recipe_urls + user_urls + review_urls
+
+
+handler500 = 'recipe.views.error_500'
+handler404 = 'recipe.views.error_404'
