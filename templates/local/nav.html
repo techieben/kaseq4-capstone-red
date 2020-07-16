@@ -1,19 +1,21 @@
-{% comment %} Navbar start {% endcomment %}
+{% comment %} https://www.calazan.com/adding-basic-search-to-your-django-site/ {% endcomment %}
+
 <div id="topnav" class="search-container">
-  <form action="/action_page.php">
-    <input type="text" placeholder="Search.." name="search" />
+  <form id="searchform" action="{% url 'search' %}" method="get" accept-charset="utf-8">
+    <button class="search-glass-button" type="submit">
+      <i class="search-glass" aria-hidden="true">&#128270;</i>
+    </button>
+    <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
   </form>
-  <button class="search-glass-button" type="submit">
-    <i class="search-glass" aria-hidden="true">&#128270;</i>
-  </button>
 </div>
-{% comment %} Navbar end {% endcomment %} {% if request.user.is_authenticated %}
+
+{% if request.user.is_authenticated %}
 <p>
   Logged in as
   <a href="/profile/{{request.user.username}}/">{{ request.user.username }}</a>
 </p>
 <p>
-  <a href="{% url 'search' %}">Search</a> |
+  {% comment %} <a href="{% url 'search' %}">Search</a> | {% endcomment %}
   <a href="/"
     >Notifications {% if request.user.notification_set.count %} ({{
     request.user.notification_set.count }}) {% endif %}
@@ -21,12 +23,11 @@
   | <a href="/profile/{{ request.user.username }}">My Profile</a> |
   <a href="/recipe_add/">Add a Recipe</a> |
   <a href="/favorite_list/default">Favorite Recipes</a> |
-  <!-- <a href="{% url 'account_email' %}">Change E-mail</a> | -->
+  {% comment %} <a href="{% url 'account_email' %}">Change E-mail</a> | {% endcomment %}
   <a href="{% url 'account_logout' %}">Sign Out</a>
 </p>
 {% else %}
 <p>
-  <a href="{% url 'search' %}">Search</a> |
   <a href="{% url 'account_login' %}">Sign In</a> |
   <a href="{% url 'account_signup' %}">Sign Up</a>
 </p>
