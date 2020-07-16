@@ -25,8 +25,7 @@ SECRET_KEY = 'p5+r*p4hx@f*o&*nnl*bwrqi71rvubxjel_4z7iu+@te(!5dy7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = ["*", '127.0.0.1']
 
 # Application definition
 
@@ -174,3 +173,5 @@ ACCOUNT_LOGOUT_ON_GET = True
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = '/login/'
+
+
