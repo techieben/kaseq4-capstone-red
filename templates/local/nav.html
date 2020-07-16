@@ -8,12 +8,12 @@
   </button>
 </div>
 {% comment %} Navbar end {% endcomment %} {% if request.user.is_authenticated %}
-
 <p>
   Logged in as
   <a href="/profile/{{request.user.username}}/">{{ request.user.username }}</a>
 </p>
 <p>
+  <a href="{% url 'search' %}">Search</a> |
   <a href="/"
     >Notifications {% if request.user.notification_set.count %} ({{
     request.user.notification_set.count }}) {% endif %}
@@ -26,6 +26,7 @@
 </p>
 {% else %}
 <p>
+  <a href="{% url 'search' %}">Search</a> |
   <a href="{% url 'account_login' %}">Sign In</a> |
   <a href="{% url 'account_signup' %}">Sign Up</a>
 </p>

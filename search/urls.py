@@ -17,15 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
-from recipe.urls import urlpatterns as recipe_urls
-from user.urls import urlpatterns as user_urls
-from review.urls import urlpatterns as review_urls
-from search.urls import urlpatterns as search_urls
-
 urlpatterns = [
-    path('', views.IndexView, name='home'),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
+    path('search/', views.SearchView, name='search'),
 ]
-
-urlpatterns += recipe_urls + user_urls + review_urls + search_urls
