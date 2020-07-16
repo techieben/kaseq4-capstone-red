@@ -1,31 +1,27 @@
-{% extends 'base.html' %}
-
-{% load crispy_forms_tags %}
-
-{% block content %}
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
 
 <h2>{{recipe.title}}</h2>
 
 {% if request.user.is_authenticated %}
-  <p>
-    {% if request.user != recipe.author %}
-      <a href="/recipe_review"> Review Recipe </a> |
-    {% endif %}
-    {% if recipe in request.user.favorites.all %}
-      <a href="/unfavorite/{{ recipe.title }}">Unfavorite This Recipe</a>
-    {% else %}
-      <a href="/favorite/{{ recipe.title }}">Favorite This Recipe</a>
-    {% endif %}
-    {% if request.user == recipe.author %}
-      | <a href="/recipe_edit"> Edit Recipe </a>
-    {% endif %}
-    | <a href="/recipe_nutrition"> Nutrition Info </a>
-  </p>
+<p>
+  {% if request.user != recipe.author %}
+  <a href="/recipe_review"> Review Recipe </a> | {% endif %}
+  {% if recipe in request.user.favorites.all %}
+  <a href="/unfavorite/{{ recipe.title }}">Unfavorite This Recipe</a>
+  {% else %}
+  <a href="/favorite/{{ recipe.title }}">Favorite This Recipe</a>
+  {% endif %}
+  {% if request.user == recipe.author %} |
+  <a href="/recipe_edit/{{ recipe.title }}"> Edit Recipe </a> {% endif %} |
+  <a href="/recipe_nutrition"> Nutrition Info </a>
+</p>
 {% endif %}
 
 <p>
-  Rating: 5 Stars | Favorited by {{ recipe.favorited_by.count }} users
-<p>
+  Rating: {{ avg_rating }} Stars | Favorited by {{ recipe.favorited_by.count }} users
+</p>
+
+<p></p>
 
 <ul>
   <li>
@@ -89,41 +85,41 @@
   </li>
 </ul>
 <div class="Comments-Container">
-    <div class="New-Review-Container">
-        <h4>Write a Review</h4>
-        <form action="" method="post">
-            {% csrf_token %}
-            <!-- {% for error in form.non_field_errors %}
-                <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %} -->
-            {{ form|crispy }}
-            <input type="submit" class="btn btn-primary" value="Submit" />
-        </form>
-    </div>
+  <div class="New-Review-Container">
+    <h4>Write a Review</h4>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" class="btn btn-primary" value="Submit" />
+    </form>
+  </div>
 
-    <div class="reviews-list">
-        {% for review in reviews %}
-            <div class="review">
-                <ul>
-                    <li>
-                        {{review.title}} | {{review.author}} | {{review.rating}}
-                    </li>
-                    <li>
-                        {{review.content}}
-                    </li>
-                    <li>
-                        <a class="btn btn-primary" href="/review_like/{{review.id}}">Upvote: {{review.upvotes}}</a> |
-                        <a class="btn btn-primary" href="/review_unlike/{{review.id}}">Downvote: {{review.downvotes}}</a>
-                        {% if review.author == request.user %}
-                            | <a class="btn btn-primary" href="/review_edit/{{review.id}}">Edit</a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
-        {% endfor %}
+  <div class="reviews-list">
+    {% for review in reviews %}
+    <div class="review">
+      <ul>
+        <li>
+          {{review.title}} | {{review.author}} | {{review.rating}}
+        </li>
+        <li>
+          {{review.content}}
+        </li>
+        <li>
+          <a class="btn btn-primary" href="/review_like/{{review.id}}"
+            >Upvote: {{review.upvotes}}</a
+          >
+          |
+          <a class="btn btn-primary" href="/review_unlike/{{review.id}}"
+            >Downvote: {{review.downvotes}}</a
+          >
+          {% if review.author == request.user %} |
+          <a class="btn btn-primary" href="/review_edit/{{review.id}}">Edit</a>
+          {% endif %}
+        </li>
+      </ul>
     </div>
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}
