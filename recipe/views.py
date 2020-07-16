@@ -1,23 +1,34 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Recipe
-from user.models import CustomUser
 from .forms import RecipeForm
 from review.models import Review
 from review.forms import AddReviewForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
+from django.db.models import Avg, Func
 
 
 class RecipeView(View):
 
     def get(self, request, title):
+        class Round(Func):
+            function = 'ROUND'
+            arity = 2
+
         html = "recipe.html"
         recipe = Recipe.objects.get(title=title)
+        avg_rating = Review.objects.filter(
+            recipe=recipe.id).aggregate(avg_rate=Round(Avg('rating'), 1))
         reviews = Review.objects.filter(recipe=recipe)
         form = AddReviewForm(initial={'recipe': Recipe.objects.get(
             title=title), 'author': request.user})
-        return render(request, html, {'recipe': recipe, 'reviews': reviews, 'form': form})
+        return render(request, html, {
+            'recipe': recipe,
+            'avg_rating': avg_rating['avg_rate'],
+            'reviews': reviews,
+            'form': form
+        })
 
     def post(self, request, title):
         html = 'recipe.html'
@@ -37,7 +48,11 @@ class RecipeView(View):
             form = AddReviewForm(initial={'recipe': Recipe.objects.get(
                 title=title), 'author': request.user})
 
-        return render(request, html, {'recipe': recipe, 'reviews': reviews, 'form': form})
+        return render(request, html, {
+            'recipe': recipe,
+            'reviews': reviews,
+            'form': form
+        })
 
 
 def FavoriteListView(request, sort):

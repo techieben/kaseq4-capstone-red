@@ -18,7 +18,7 @@
 {% endif %}
 
 <p>
-  Rating: 5 Stars | Favorited by {{ recipe.favorited_by.count }} users
+  Rating: {{ avg_rating }} Stars | Favorited by {{ recipe.favorited_by.count }} users
 </p>
 
 <p></p>
@@ -89,11 +89,6 @@
     <h4>Write a Review</h4>
     <form action="" method="post">
       {% csrf_token %}
-      <!-- {% for error in form.non_field_errors %}
-                <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %} -->
       {{ form|crispy }}
       <input type="submit" class="btn btn-primary" value="Submit" />
     </form>
