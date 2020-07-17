@@ -11,11 +11,11 @@
 
 <p>
     {% if object_list %}
-        <ul>
-          {%for recipe in object_list%}
-            <li><a href='/recipe/{{ recipe.title }}'>{{ recipe.title }}</a></li>
-          {% endfor %}
-        </ul>
+    <div id="recipe-card-container">
+      {% for recipe in object_list %}
+          {% include 'recipe_card.html' %}
+      {% endfor %}
+    </div>
     {% else %}
         <h6>No Results.</h6>
     {% endif %}

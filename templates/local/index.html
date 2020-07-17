@@ -3,26 +3,18 @@
 <p>
     {% if recipes %}
     <h3>Newest Recipes:</h3>
-    <div>
-        <ul>
-            {% for recipe in recipes|sort_by:'-date_created'|slice:":5" %}
-            {% comment %} <li><a href='/recipe/{{ recipe.title }}'>{{ recipe.title }}</a></li> {% endcomment %}
-            {% endfor %}
-            {% comment %} added recipe_card.html  {% endcomment %}
+    <div id="recipe-card-container">
+        <!-- need to change the following to sort by rating:     -->
+        {% for recipe in recipes|sort_by:'-date_created'|slice:":5" %}
             {% include 'recipe_card.html' %}
-
-        </ul>
+        {% endfor %}    
     </div>
     <h3>Most Popular Recipes:</h3>
-    <div>
-        <ul>
-            <!-- need to change the following to sort by rating:     -->
-            {% for recipe in recipes|sort_by:'title'|slice:":5" %}
-            {% comment %} <li><a href='/recipe/{{ recipe.title }}'>{{ recipe.title }}</a></li> {% endcomment %}
-            {% endfor %}
-            {% comment %} added recipe_card.html  {% endcomment %}
+    <div id="recipe-card-container">
+        <!-- need to change the following to sort by rating:     -->
+        {% for recipe in recipes|sort_by:'title'|slice:":5" %}
             {% include 'recipe_card.html' %}
-        </ul>
+        {% endfor %}    
     </div>
     {% else %}
         <h6>No Recipes.</h6>

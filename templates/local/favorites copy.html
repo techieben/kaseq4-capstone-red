@@ -13,10 +13,13 @@
 
 <p>
     {% if recipes %}
-    <div id="recipe-card-container">
-        {% for recipe in recipes %}
-            {% include 'recipe_card.html' %}
-        {% endfor %}
+    <div>
+        <ul>
+            {% for recipe in recipes %}
+            {% comment %} <li><a href='/recipe/{{ recipe.title }}'>{{ recipe.title }}</a></li> {% endcomment %}
+            {% endfor %}
+        </ul>
+        {% include 'recipe_card.html' %}
     </div>
     {% else %}
         <h6>No Recipes.</h6>

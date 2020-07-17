@@ -32,15 +32,14 @@
 
 <p>
     {% if recipes %}
-        <ul>
-          {%for recipe in recipes%}
-            <li><a href='/recipe/{{ recipe.title }}'>{{ recipe.title }}</a></li>
-          {% endfor %}
-        </ul>
+    <div id="recipe-card-container">
+      {% for recipe in recipes %}
+          {% include 'recipe_card.html' %}
+      {% endfor %}
+    </div>
     {% else %}
         <h6>No Recipes.</h6>
     {% endif %}
 </p>
   
-  {% include 'recipe_card.html' %} 
 {% endblock %}
