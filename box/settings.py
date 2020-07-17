@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'recipe',
     'user',
     'review',
+    'search',
     'notification'
 ]
 
