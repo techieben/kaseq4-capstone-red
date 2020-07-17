@@ -34,5 +34,5 @@ urlpatterns += recipe_urls + user_urls + \
     review_urls + notification_urls + search_urls
 
 
-handler500 = 'recipe.views.error_500'
-handler404 = 'recipe.views.error_404'
+handler500 = 'box.views.error_500'
+handler404 = 'box.views.error_404'
