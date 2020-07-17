@@ -10,7 +10,6 @@ from django.db.models import Avg, Func
 
 
 class RecipeView(View):
-
     def get(self, request, title):
         class Round(Func):
             function = 'ROUND'
@@ -60,6 +59,19 @@ class RecipeView(View):
             'form': form
         })
 
+
+def RecipeCard(request):
+    html = "recipe_card.html"
+    form = RecipeForm()
+    if form.is_valid():
+        data = form.cleaned_data
+        recipe = Recipe.objects.create(
+            title = data['title'],
+            recipe_picture = data['recipe_picture']
+            )
+        recipe.save()
+        return HttpResponseRedirect(reverse('recipe', args=(recipe.title,)))
+    return render(request, html, {'form': form})
 
 def FavoriteListView(request, sort):
     html = 'favorites.html'
@@ -130,3 +142,9 @@ def FavoriteView(request, title):
 def UnfavoriteView(request, title):
     Recipe.objects.get(title=title).favorited_by.remove(request.user)
     return HttpResponseRedirect(reverse('recipe', args=(title,)))
+
+def error_404(request, exception):
+    return render(request, '404.html', status=404)
+
+def error_500(request):
+    return render(request, '500.html', status=500)
