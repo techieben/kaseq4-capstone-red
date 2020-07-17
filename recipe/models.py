@@ -29,6 +29,11 @@ class ChoiceArrayField(ArrayField):
         return super(ArrayField, self).formfield(**defaults)
 
 
+class RecipeCard(models.Model):
+    title = models.CharField(max_length=120, unique=True)
+    recipe_picture = models.URLField(max_length=200)
+
+
 class Recipe(models.Model):
     MEAL_CHOICES = [
         ('HH', 'Heart-Healthy'),
@@ -41,8 +46,9 @@ class Recipe(models.Model):
 
     title = models.CharField(max_length=120, unique=True)
     description = models.TextField(max_length=320)
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='custom_user')
-    favorites = models.ManyToManyField(
+    author = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name='custom_user')
+    favorited_by = models.ManyToManyField(
         CustomUser,
         blank=True,
         related_name='favorites'

@@ -23,10 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'p5+r*p4hx@f*o&*nnl*bwrqi71rvubxjel_4z7iu+@te(!5dy7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = ["*", '127.0.0.1']
 
 # Application definition
 
@@ -38,14 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'crispy_forms',
-    
+
     'recipe',
-    'user'
+    'user',
+    'review',
+    'notification'
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'box.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR,'templates/local')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates/local')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -161,7 +162,7 @@ ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-ACCOUNT_EMAIL_VERIFICATION = ("none")
+ACCOUNT_EMAIL_VERIFICATION = ('none')
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 # for adding extra fields in signup form also uncomment in user/forms
