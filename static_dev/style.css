@@ -142,3 +142,53 @@ i.search-glass {
   }
 }
 /* navbar end */
+
+/* recipe labels beginning */
+
+div#recipe-card-container {
+  /* width: 100%; */
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  /* word-wrap: normal; */
+  /*flex-direction: row; */
+  padding: 5px;
+  border-color: beige;
+}
+
+div.card {
+  text-align: center;
+  font-family: arial;
+  height: 300px;
+  width: 300px;
+  margin: 5px;
+}
+
+div.card:hover {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  background-color:beige;
+  text-align: center;
+  vertical-align: text-bottom;
+  cursor: pointer;
+  width: 100%;
+  font-size: x-large;
+}
+ 
+.card button:hover {
+  opacity: 0.7;
+}
+
+p#star {
+  bottom: 0;
+  width: 100%;
+  background-color: beige;
+  padding: 0;
+  margin: 0;
+} 
+
+/* recipe labels end */
