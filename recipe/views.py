@@ -31,8 +31,13 @@ class RecipeView(View):
         })
 
     def post(self, request, title):
+        class Round(Func):
+            function = 'ROUND'
+            arity = 2
         html = 'recipe.html'
         recipe = Recipe.objects.get(title=title)
+        avg_rating = Review.objects.filter(
+            recipe=recipe.id).aggregate(avg_rate=Round(Avg('rating'), 1))
         reviews = Review.objects.filter(recipe=recipe.id)
         form = AddReviewForm(request.POST)
 
@@ -50,6 +55,7 @@ class RecipeView(View):
 
         return render(request, html, {
             'recipe': recipe,
+            'avg_rating': avg_rating['avg_rate'],
             'reviews': reviews,
             'form': form
         })
