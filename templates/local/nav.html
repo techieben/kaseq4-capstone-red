@@ -15,11 +15,10 @@
   <a href="/profile/{{request.user.username}}/">{{ request.user.username }}</a>
 </p>
 <p>
-  {% comment %} <a href="{% url 'search' %}">Search</a> | {% endcomment %}
-  <a href="/"
-    >Notifications {% if request.user.notification_set.count %} ({{
+  <a href="/notifications"
+    >Notifications: {% if request.user.notification_set.count %} ({{
     request.user.notification_set.count }}) {% endif %}
-  </a>
+  {% comment %} <a href="{% url 'search' %}">Search</a> | {% endcomment %}
   | <a href="/profile/{{ request.user.username }}">My Profile</a> |
   <a href="/recipe_add/">Add a Recipe</a> |
   <a href="/favorite_list/default">Favorite Recipes</a> |
