@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler404, handler500
 from . import views
 
 from recipe.urls import urlpatterns as recipe_urls
@@ -22,6 +23,7 @@ from user.urls import urlpatterns as user_urls
 from review.urls import urlpatterns as review_urls
 from notification.urls import urlpatterns as notification_urls
 from django.conf.urls import handler404, handler500
+from search.urls import urlpatterns as search_urls
 
 urlpatterns = [
     path('', views.IndexView, name='home'),
@@ -29,7 +31,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 ]
 
-urlpatterns += recipe_urls + user_urls + review_urls + notification_urls
+urlpatterns += recipe_urls + user_urls + review_urls + notification_urls + search_urls
 
 
 handler500 = 'recipe.views.error_500'
