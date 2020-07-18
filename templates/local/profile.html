@@ -33,14 +33,13 @@
 <p>
     {% if recipes %}
         <ul>
-          {%for recipe in recipes%}
-            <li><a href='/recipe/{{ recipe.title }}'>{{ recipe.title }}</a></li>
-          {% endfor %}
+          {% comment %} {%for recipe in recipes%} {% endcomment %}
+             {% include 'recipe_card.html' %} 
+          {% comment %} {% endfor %} {% endcomment %}
         </ul>
     {% else %}
         <h6>No Recipes.</h6>
     {% endif %}
 </p>
   
-  {% include 'recipe_card.html' %} 
 {% endblock %}
