@@ -28,9 +28,6 @@ class ChoiceArrayField(ArrayField):
         # pylint:disable=bad-super-call
         return super(ArrayField, self).formfield(**defaults)
 
-class RecipeCard(models.Model):
-    title = models.CharField(max_length=120, unique=True)
-    recipe_picture = models.URLField(max_length=200)
 
 class Recipe(models.Model):
     MEAL_CHOICES = [

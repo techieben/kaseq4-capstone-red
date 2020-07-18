@@ -5,6 +5,7 @@ from django.views.generic import View
 from user.models import CustomUser
 from user.forms import CustomUserChangeForm
 from recipe.models import Recipe
+from notification.models import Notification
 
 
 # Create your views here.
@@ -32,10 +33,20 @@ class ProfileEditView(View):
 @login_required
 def FollowView(request, username):
     request.user.following.add(CustomUser.objects.get(username=username))
+    Notification.objects.create(
+        user_to=CustomUser.objects.get(username=username),
+        user_from=request.user,
+        text=str(request.user) + " is following you."
+    )
     return HttpResponseRedirect(reverse('profile', args=(username,)))
 
 
 @login_required
 def UnfollowView(request, username):
     request.user.following.remove(CustomUser.objects.get(username=username))
+    Notification.objects.create(
+        user_to=CustomUser.objects.get(username=username),
+        user_from=request.user,
+        text=str(request.user) + " has unfollowed you."
+    )
     return HttpResponseRedirect(reverse('profile', args=(username,)))
