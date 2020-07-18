@@ -59,7 +59,8 @@ class RecipeView(View):
                 user_from=request.user,
                 recipe=recipe,
                 review=new_review,
-                text=str(request.user) + " left a review on your recipe " + str(recipe.title) + "."
+                text=str(request.user) + " left a review on your recipe " +
+                str(recipe.title) + "."
             )
             form = AddReviewForm(initial={'recipe': Recipe.objects.get(
                 title=title), 'author': request.user})
@@ -70,20 +71,6 @@ class RecipeView(View):
             'reviews': reviews,
             'form': form
         })
-
-
-def RecipeCard(request):
-    html = "recipe_card.html"
-    form = RecipeForm()
-    if form.is_valid():
-        data = form.cleaned_data
-        recipe = Recipe.objects.create(
-            title=data['title'],
-            recipe_picture=data['recipe_picture']
-        )
-        recipe.save()
-        return HttpResponseRedirect(reverse('recipe', args=(recipe.title,)))
-    return render(request, html, {'form': form})
 
 
 def FavoriteListView(request, sort):
@@ -133,7 +120,8 @@ class RecipeAddView(LoginRequiredMixin, View):
                     user_to=follower,
                     user_from=request.user,
                     recipe=recipe,
-                    text=str(request.user) + " posted a new recipe  " + str(recipe.title) + "."
+                    text=str(request.user) + " posted a new recipe  " +
+                    str(recipe.title) + "."
                 )
                 # for user in request.user.following
             return HttpResponseRedirect(reverse('recipe',
@@ -164,7 +152,8 @@ def FavoriteView(request, title):
             user_to=recipe.author,
             user_from=request.user,
             recipe=recipe,
-            text=str(request.user) + " added " + str(recipe.title) + " to their favorites."
+            text=str(request.user) + " added " +
+            str(recipe.title) + " to their favorites."
         )
     return HttpResponseRedirect(reverse('recipe', args=(title,)))
 
@@ -178,7 +167,8 @@ def UnfavoriteView(request, title):
             user_to=recipe.author,
             user_from=request.user,
             recipe=recipe,
-            text=str(request.user) + " removed " + str(recipe.title) + " from their favorites."
+            text=str(request.user) + " removed " +
+            str(recipe.title) + " from their favorites."
         )
     return HttpResponseRedirect(reverse('recipe', args=(title,)))
 
