@@ -13,7 +13,7 @@
   {% endif %}
   {% if request.user == recipe.author %} |
   <a href="/recipe_edit/{{ recipe.title }}"> Edit Recipe </a> {% endif %} |
-  <a href="/recipe_nutrition"> Nutrition Info </a>
+  <a href="/recipe_nutrition/{{ recipe.title }}"> Nutrition Info </a>
 </p>
 {% endif %}
 

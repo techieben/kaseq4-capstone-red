@@ -11,6 +11,7 @@ from notification.models import Notification
 from review.forms import AddReviewForm
 from django.views.generic import View
 from django.db.models import Avg, Func
+import requests
 
 
 class RecipeView(View):
@@ -171,6 +172,34 @@ def UnfavoriteView(request, title):
             str(recipe.title) + " from their favorites."
         )
     return HttpResponseRedirect(reverse('recipe', args=(title,)))
+
+
+def RecipeNutritionView(request, title):
+    html = 'recipe_nutrition.html'
+    url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
+    headers = {
+        'x-app-id': '737e78f4',
+        'x-app-key': 'b33863a33f08cb00df2a437da6f050e9',
+        'x-remote-user-id': '0',
+        'Content-Type': 'application/json'
+    }
+    payload = "{\"query\": \"1 cup chicken noodle soup and 2 cup of chicken noodle soup and 1 cheese pizza\"}"
+    r = requests.request("POST", url, headers=headers, data=payload)
+    data = r.json()
+    if r.status_code == requests.codes.ok:
+        calories = 0
+        total_fat = 0
+        for food in data['foods']:
+            calories += food['nf_calories']
+            total_fat += food['nf_total_fat']
+            print(food['nf_calories'])
+            print(food['nf_total_fat'])
+
+        print(calories)
+        print(total_fat)
+    else:
+        pass
+    return render(request, html)
 
 
 def error_404(request, exception):
