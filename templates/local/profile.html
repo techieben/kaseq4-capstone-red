@@ -32,11 +32,11 @@
 
 <p>
     {% if recipes %}
-    <div id="recipe-card-container">
-      {% for recipe in recipes %}
-          {% include 'recipe_card.html' %}
-      {% endfor %}
-    </div>
+      <div id="recipe-card-container">
+        {% for recipe in recipes %}
+            {% include 'recipe_card.html' %}
+        {% endfor %}
+      </div>
     {% else %}
         <h6>No Recipes.</h6>
     {% endif %}
