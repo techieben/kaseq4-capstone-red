@@ -11,6 +11,7 @@ from notification.models import Notification
 from review.forms import AddReviewForm
 from django.views.generic import View
 from django.db.models import Avg, Func
+import requests
 
 
 class RecipeView(View):
@@ -21,6 +22,9 @@ class RecipeView(View):
 
         html = "recipe.html"
         recipe = Recipe.objects.get(title=title)
+        plain_prep = recipe.plain_time(recipe.time_prep)
+        plain_cook = recipe.plain_time(recipe.time_cook)
+        plain_additional = recipe.plain_time(recipe.time_additional)
         avg_rating = Review.objects.filter(
             recipe=recipe.id).aggregate(avg_rate=Round(Avg('rating'), 1))
         reviews = Review.objects.filter(recipe=recipe)
@@ -28,6 +32,9 @@ class RecipeView(View):
             title=title), 'author': request.user})
         return render(request, html, {
             'recipe': recipe,
+            'plain_prep': plain_prep,
+            'plain_cook': plain_cook,
+            'plain_additional': plain_additional,
             'avg_rating': avg_rating['avg_rate'],
             'reviews': reviews,
             'form': form
@@ -171,6 +178,72 @@ def UnfavoriteView(request, title):
             str(recipe.title) + " from their favorites."
         )
     return HttpResponseRedirect(reverse('recipe', args=(title,)))
+
+
+def RecipeNutritionView(request, title):
+    html = 'recipe_nutrition.html'
+    recipe = Recipe.objects.get(title=title)
+    url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
+    headers = {
+        'x-app-id': '737e78f4',
+        'x-app-key': 'b33863a33f08cb00df2a437da6f050e9',
+        'x-remote-user-id': '0',
+        'Content-Type': 'application/json'
+    }
+    payload = "{\"query\": \"" + ' and '.join(recipe.ingredients) + "\"}"
+    r = requests.request("POST", url, headers=headers, data=payload)
+    data = r.json()
+    calories = 0
+    total_fat = 0
+    saturated_fat = 0
+    cholesterol = 0
+    sodium = 0
+    total_carbohydrate = 0
+    dietary_fiber = 0
+    sugars = 0
+    protein = 0
+    potassium = 0
+    if r.status_code == requests.codes.ok:
+        api_response = '200'
+        for food in data['foods']:
+            calories += food['nf_calories']
+            total_fat += food['nf_total_fat']
+            saturated_fat += food['nf_saturated_fat']
+            cholesterol += food['nf_cholesterol']
+            sodium += food['nf_sodium']
+            total_carbohydrate += food['nf_total_carbohydrate']
+            dietary_fiber += food['nf_dietary_fiber']
+            sugars += food['nf_sugars']
+            protein += food['nf_protein']
+            potassium += food['nf_potassium']
+        return render(request, html, {
+            'api_response': api_response,
+            'calories': round(calories, 2),
+            'total_fat': round(total_fat, 2),
+            'saturated_fat': round(saturated_fat, 2),
+            'cholesterol': round(cholesterol, 2),
+            'sodium': round(sodium, 2),
+            'total_carbohydrate': round(total_carbohydrate, 2),
+            'dietary_fiber': round(dietary_fiber, 2),
+            'sugars': round(sugars, 2),
+            'protein': round(protein, 2),
+            'potassium': round(potassium, 2)
+        })
+    else:
+        api_response = '400'
+        return render(request, html, {
+            'api_response': api_response,
+            'calories': round(calories, 2),
+            'total_fat': round(total_fat, 2),
+            'saturated_fat': round(saturated_fat, 2),
+            'cholesterol': round(cholesterol, 2),
+            'sodium': round(sodium, 2),
+            'total_carbohydrate': round(total_carbohydrate, 2),
+            'dietary_fiber': round(dietary_fiber, 2),
+            'sugars': round(sugars, 2),
+            'protein': round(protein, 2),
+            'potassium': round(potassium, 2)
+        })
 
 
 def error_404(request, exception):
