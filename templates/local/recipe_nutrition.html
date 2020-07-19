@@ -1,1 +1,47 @@
-<h1>NutritionInfo</h1>
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Nutrition Info</h1>
+
+{% if api_response == '200' %}
+    <div class='container'>
+        <ul>
+            <li>
+                Calories: {{calories}}
+            </li>
+            <li>
+                Total Fat: {{total_fat}}
+            </li>
+            <li>
+                Saturated Fat: {{saturated_fat}}
+            </li>
+            <li>
+                Cholesterol: {{cholesterol}}
+            </li>
+            <li>
+                Sodium: {{sodium}}
+            </li>
+            <li>
+                Total Carbohydrates: {{total_carbohydrate}}
+            </li>
+            <li>
+                Dietary Fiber: {{dietary_fiber}}
+            </li>
+            <li>
+                Sugars: {{sugars}}
+            </li>
+            <li>
+                Protein: {{protein}}
+            </li>
+            <li>
+                Potassium: {{potassium}}
+            </li>
+        </ul>
+    </div>
+{% else %}
+    <div>
+        There was an error getting the nutritional information from the nutritionix api.
+    </div>
+{% endif%}
+
+{% endblock %}

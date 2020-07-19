@@ -176,6 +176,7 @@ def UnfavoriteView(request, title):
 
 def RecipeNutritionView(request, title):
     html = 'recipe_nutrition.html'
+    recipe = Recipe.objects.get(title=title)
     url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
     headers = {
         'x-app-id': '737e78f4',
@@ -183,23 +184,60 @@ def RecipeNutritionView(request, title):
         'x-remote-user-id': '0',
         'Content-Type': 'application/json'
     }
-    payload = "{\"query\": \"1 cup chicken noodle soup and 2 cup of chicken noodle soup and 1 cheese pizza\"}"
+    payload = "{\"query\": \"" + ' and '.join(recipe.ingredients) + "\"}"
     r = requests.request("POST", url, headers=headers, data=payload)
     data = r.json()
+    calories = 0
+    total_fat = 0
+    saturated_fat = 0
+    cholesterol = 0
+    sodium = 0
+    total_carbohydrate = 0
+    dietary_fiber = 0
+    sugars = 0
+    protein = 0
+    potassium = 0
     if r.status_code == requests.codes.ok:
-        calories = 0
-        total_fat = 0
+        api_response = '200'
         for food in data['foods']:
             calories += food['nf_calories']
             total_fat += food['nf_total_fat']
-            print(food['nf_calories'])
-            print(food['nf_total_fat'])
-
-        print(calories)
-        print(total_fat)
+            saturated_fat += food['nf_saturated_fat']
+            cholesterol += food['nf_cholesterol']
+            sodium += food['nf_sodium']
+            total_carbohydrate += food['nf_total_carbohydrate']
+            dietary_fiber += food['nf_dietary_fiber']
+            sugars += food['nf_sugars']
+            protein += food['nf_protein']
+            potassium += food['nf_potassium']
+        return render(request, html, {
+            'api_response': api_response,
+            'calories': round(calories, 2),
+            'total_fat': round(total_fat, 2),
+            'saturated_fat': round(saturated_fat, 2),
+            'cholesterol': round(cholesterol, 2),
+            'sodium': round(sodium, 2),
+            'total_carbohydrate': round(total_carbohydrate, 2),
+            'dietary_fiber': round(dietary_fiber, 2),
+            'sugars': round(sugars, 2),
+            'protein': round(protein, 2),
+            'potassium': round(potassium, 2)
+        })
     else:
-        pass
-    return render(request, html)
+        api_response = '400'
+        return render(request, html, {
+            'api_response': api_response,
+            'calories': round(calories, 2),
+            'total_fat': round(total_fat, 2),
+            'saturated_fat': round(saturated_fat, 2),
+            'cholesterol': round(cholesterol, 2),
+            'sodium': round(sodium, 2),
+            'total_carbohydrate': round(total_carbohydrate, 2),
+            'dietary_fiber': round(dietary_fiber, 2),
+            'sugars': round(sugars, 2),
+            'protein': round(protein, 2),
+            'potassium': round(potassium, 2)
+        })
 
 
 def error_404(request, exception):
