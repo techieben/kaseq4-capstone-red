@@ -22,6 +22,10 @@ class RecipeView(View):
 
         html = "recipe.html"
         recipe = Recipe.objects.get(title=title)
+        plain_prep = recipe.plain_time(recipe.time_prep)
+        plain_cook = recipe.plain_time(recipe.time_cook)
+        plain_additional = recipe.plain_time(recipe.time_additional)
+        print(plain_prep)
         avg_rating = Review.objects.filter(
             recipe=recipe.id).aggregate(avg_rate=Round(Avg('rating'), 1))
         reviews = Review.objects.filter(recipe=recipe)
@@ -29,6 +33,9 @@ class RecipeView(View):
             title=title), 'author': request.user})
         return render(request, html, {
             'recipe': recipe,
+            'plain_prep': plain_prep,
+            'plain_cook': plain_cook,
+            'plain_additional': plain_additional,
             'avg_rating': avg_rating['avg_rate'],
             'reviews': reviews,
             'form': form

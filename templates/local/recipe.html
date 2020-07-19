@@ -48,21 +48,17 @@
     # of servings: {{recipe.servings}}
   </li>
   <li>
-    <!-- will set up custom tag to make this easier -->
-    <!-- Prep Time:  recipe|related_plain_time recipe.time_prep  -->
-    Prep Time: {{recipe.time_prep}}
+    Prep Time: {{plain_prep}}
   </li>
   <li>
-    <!-- will set up custom tag to make this easier -->
-    <!-- Prep Time:  recipe|related_plain_time recipe.time_prep  -->
-    Cook Time: {{recipe.time_cook}}
+    Cook Time: {{plain_cook}}
   </li>
   <li>
-    <!-- will set up custom tag to make this easier -->
-    <!-- Prep Time:  recipe|related_plain_time recipe.time_prep  -->
-    Additional Time: {{recipe.time_additional}}
+    Additional Time: {{plain_additional}}
   </li>
-  <!-- Total Time -->
+  <li>
+    Total Time: {{recipe.total_time}}
+  </li>
   <li>
     Ingredients:
     <ul>
