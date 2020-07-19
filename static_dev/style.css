@@ -192,3 +192,15 @@ p#star {
 }
 
 /* recipe labels end */
+
+/* error 404 page not found start */
+h1#error404 {
+  color: red;
+}
+
+body {
+  text-align: center;
+}
+
+/* error 404 page not found end*/
+
