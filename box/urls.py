@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls import handler404, handler500
 from . import views
 
 from recipe.urls import urlpatterns as recipe_urls
@@ -32,7 +31,3 @@ urlpatterns = [
 
 urlpatterns += recipe_urls + user_urls + \
     review_urls + notification_urls + search_urls
-
-
-handler500 = 'box.views.error_500'
-handler404 = 'box.views.error_404'
