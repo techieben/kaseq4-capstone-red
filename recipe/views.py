@@ -108,7 +108,6 @@ class RecipeAddView(LoginRequiredMixin, View):
     def post(self, request):
         html = "form.html"
         form = RecipeForm(request.POST, request.FILES)
-        breakpoint()
         if form.is_valid():
             data = form.cleaned_data
             recipe = Recipe.objects.create(

@@ -24,9 +24,12 @@ class ProfileEditView(View):
         return render(request, 'profile_edit.html', {'form': form})
 
     def post(self, request):
-        form = CustomUserChangeForm(request.POST, instance=request.user)
+        html = "profile.html"
+        recipes = Recipe.objects.filter(author=request.user).order_by('-date_created')
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
+            return render(request, html, {'profile': request.user, 'recipes': recipes})
         return render(request, self.html, {'form': form})
 
 
