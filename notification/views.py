@@ -10,8 +10,8 @@ def NotificationView(request):
     html = 'notifications.html'
     notifications = Notification.objects.filter(user_to=request.user)
 
-    for notification in notifications:
-        notification.delete()
+    # for notification in notifications:
+    #     notification.delete()
 
     return render(request, html, {
         'notifications': notifications

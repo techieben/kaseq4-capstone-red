@@ -66,8 +66,10 @@ class RecipeView(View):
                 user_from=request.user,
                 recipe=recipe,
                 review=new_review,
-                text=str(request.user) + " left a review on your recipe " +
-                str(recipe.title) + "."
+                # text=r'<a href="/profile/' + str(request.user) + r'>' + str(
+                #     request.user) + r'</a> left a review on your recipe ' + str(recipe) + '.'
+                text=str(request.user) + " left a review of your " + \
+                str(recipe) + " recipe."
             )
             form = AddReviewForm(initial={'recipe': Recipe.objects.get(
                 title=title), 'author': request.user})
