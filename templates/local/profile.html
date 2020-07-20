@@ -1,8 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
 <h2> {{ profile.username }}</h2>
-<img src="{{ profile.image.url }}"/>
-<br />
+
 
 {% if request.user.is_authenticated %}
     {% if request.user == profile %}
@@ -21,7 +20,7 @@
 {% endif %}
 
 <p>
-    Followers: {{ profile.followed_by.count }} |
+    Followers: {{ profile.followed_by.count }} | 
     Recipes: {{ recipes|length }}
 </p>
 
@@ -42,5 +41,5 @@
         <h6>No Recipes.</h6>
     {% endif %}
 </p>
-
+  
 {% endblock %}

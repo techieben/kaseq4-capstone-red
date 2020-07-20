@@ -1,5 +1,6 @@
-from django.urls import path
-from allauth.account.views import LoginView, SignupView, LogoutView
+from django.contrib import admin
+from django.urls import path, include
+from allauth.account.views import LoginView, SignupView , LogoutView, EmailView
 from user import views
 
 
