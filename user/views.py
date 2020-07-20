@@ -27,7 +27,8 @@ class ProfileEditView(View):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-        return render(request, self.html, {'form': form})
+        return HttpResponseRedirect(reverse('profile', args=(request.user.username,)))
+        # return render(request, self.html, {'form': form})
 
 
 @login_required
