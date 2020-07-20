@@ -203,6 +203,10 @@ def RecipeNutritionView(request, title):
     sugars = 0
     protein = 0
     potassium = 0
+    vitamin_a = 0
+    vitamin_c = 0
+    calcium = 0
+    trans_fat = 0
     if r.status_code == requests.codes.ok:
         api_response = '200'
         for food in data['foods']:
@@ -216,6 +220,15 @@ def RecipeNutritionView(request, title):
             sugars += food['nf_sugars']
             protein += food['nf_protein']
             potassium += food['nf_potassium']
+            for obj in food['full_nutrients']:
+                if obj['attr_id'] == 301:
+                    calcium += obj['value']
+                elif obj['attr_id'] == 401:
+                    vitamin_c += obj['value']
+                elif obj['attr_id'] == 320:
+                    vitamin_a += obj['value']
+                elif obj['attr_id'] == 605:
+                    trans_fat += obj['value']
         return render(request, html, {
             'api_response': api_response,
             'calories': round(calories, 2),
@@ -227,7 +240,11 @@ def RecipeNutritionView(request, title):
             'dietary_fiber': round(dietary_fiber, 2),
             'sugars': round(sugars, 2),
             'protein': round(protein, 2),
-            'potassium': round(potassium, 2)
+            'potassium': round(potassium, 2),
+            'vitamin_a': round(vitamin_a, 2),
+            'vitamin_c': round(vitamin_c, 2),
+            'trans_fat': round(trans_fat, 2),
+            'calcium': round(calcium, 2)
         })
     else:
         api_response = '400'
@@ -242,7 +259,11 @@ def RecipeNutritionView(request, title):
             'dietary_fiber': round(dietary_fiber, 2),
             'sugars': round(sugars, 2),
             'protein': round(protein, 2),
-            'potassium': round(potassium, 2)
+            'potassium': round(potassium, 2),
+            'vitamin_a': round(vitamin_a, 2),
+            'vitamin_c': round(vitamin_c, 2),
+            'trans_fat': round(trans_fat, 2),
+            'calcium': round(calcium, 2)
         })
 
 
