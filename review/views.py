@@ -8,10 +8,10 @@ from review.forms import EditReviewForm
 @ login_required
 def UpvoteView(request, id):
     review = Review.objects.get(id=id)
-    if Review.objects.filter(id=id).filter(voters=request.user):
-        review.upvotes += 1
-        review.voters.add(request.user)
-        review.save()
+    # if Review.objects.filter(id=id).filter(voters=request.user):
+    review.upvotes += 1
+    review.voters.add(request.user)
+    review.save()
     return HttpResponseRedirect(reverse('recipe', args=(review.recipe.title,)))
 
 # @login_required
@@ -34,10 +34,10 @@ def UpvoteView(request, id):
 @ login_required
 def DownvoteView(request, id):
     review = Review.objects.get(id=id)
-    if Review.objects.filter(id=id).filter(voters=request.user):
-        review.downvotes += 1
-        review.voters.add(request.user)
-        review.save()
+    # if Review.objects.filter(id=id).filter(voters=request.user):
+    review.downvotes += 1
+    review.voters.add(request.user)
+    review.save()
     return HttpResponseRedirect(reverse('recipe', args=(review.recipe.title,)))
 
 
