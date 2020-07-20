@@ -86,8 +86,6 @@ def FavoriteListView(request, sort):
     print("sort: ", sort)
     if sort == 'title':
         recipes = request.user.favorites.order_by('title')
-    elif sort == 'time_prep':
-        recipes = request.user.favorites.order_by('time_prep')
     elif sort == 'date_old':
         recipes = request.user.favorites.order_by('date_created')
     else:
