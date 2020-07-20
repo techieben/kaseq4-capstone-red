@@ -16,8 +16,7 @@
 </p>
 <p>
   <a href="/notifications"
-    >Notifications: {% if request.user.notification_set.count %} ({{
-    request.user.notification_set.count }}) {% endif %}
+    >Notifications {% if request.user.user_to.count %} ({{ request.user.user_to.count }}) {% endif %}
   {% comment %} <a href="{% url 'search' %}">Search</a> | {% endcomment %}
   | <a href="/profile/{{ request.user.username }}">My Profile</a> |
   <a href="/recipe_add/">Add a Recipe</a> |
