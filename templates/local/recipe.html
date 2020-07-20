@@ -4,8 +4,6 @@
 
 {% if request.user.is_authenticated %}
 <p>
-  <!-- {% if request.user != recipe.author %}
-  <a href="/recipe_review"> Review Recipe </a> | {% endif %} -->
   {% if recipe in request.user.favorites.all %}
   <a href="/unfavorite/{{ recipe.title }}">Unfavorite This Recipe</a>
   {% else %}
@@ -80,44 +78,65 @@
     </ul>
   </li>
 </ul>
+
 <div class="Comments-Container">
-  {% if request.user != recipe.author %}
-  <div class="New-Review-Container">
-    <h4>Write a Review</h4>
-    <form action="" method="post">
-      {% csrf_token %}
-      {{ form|crispy }}
-      <input type="submit" class="btn btn-primary" value="Submit" />
-    </form>
-  </div>
+  {% if request.user.is_authenticated %}
+    {% if request.user != recipe.author %}
+    <div class="New-Review-Container">
+      <h4>Write a Review</h4>
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-primary" value="Submit" />
+      </form>
+    </div>
+    {% endif %}
   {% endif %}
 
   <div class="reviews-list">
     <h4>Reviews</h4>
-    {% for review in reviews %}
-    <div class="review">
+    {% if reviews %}
+      {% for review in reviews %}
       <ul>
         <li>
-          {{review.title}} | {{review.author}} | {{review.rating}}
-        </li>
-        <li>
-          {{review.content}}
-        </li>
-        <li>
-          <a class="btn btn-primary" href="/review_like/{{review.id}}"
-            >Upvote: {{review.upvotes}}</a
-          >
-          |
-          <a class="btn btn-primary" href="/review_unlike/{{review.id}}"
-            >Downvote: {{review.downvotes}}</a
-          >
-          {% if review.author == request.user %} |
-          <a class="btn btn-primary" href="/review_edit/{{review.id}}">Edit</a>
-          {% endif %}
+          <div class="review">
+            <p>
+              <h5> {{review.title}} </h5>
+              <p>
+                {{review.rating}} Stars | 
+                <a href="/profile/{{ review.author.username }}">{{review.author.username}}</a> |
+                {{review.date}}
+              </p>
+              <p>
+                "{{review.content}}"
+              </p>
+              <p>
+                {% if request.user.is_authenticated %}
+                  {% if review.author == request.user %}
+                    <a class="btn btn-primary" href="/review_edit/{{review.id}}">Edit Review</a> |
+                    Upvotes: {{ review.upvotes }} |
+                    Downvotes: {{ review.downvotes }}
+                  {% else %}
+                  <a class="btn btn-primary" href="/review_like/{{review.id}}">Upvote: {{review.upvotes}}</a> |
+                  <a class="btn btn-primary" href="/review_unlike/{{review.id}}">Downvote: {{review.downvotes}}</a>
+                  {% endif %}
+                {% else %}
+                  Upvotes: {{ review.upvotes }} | Downvotes: {{ review.downvotes }}
+                {% endif %}
+                {% comment %} {% if request.user.is_authenticated %}
+                  {% if review.author == request.user %}
+                    <a class="btn btn-primary" href="/review_edit/{{review.id}}">Edit Review</a>
+                  {% endif %}
+                {% endif %} {% endcomment %}
+              </p>
+            </p>
+          </div>
         </li>
       </ul>
-    </div>
-    {% endfor %}
+      {% endfor %}
+    {% else %}
+      <h5>No reviews.</h5>
+    {% endif %}
   </div>
 </div>
 

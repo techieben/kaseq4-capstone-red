@@ -5,7 +5,7 @@ from review.models import Review
 from review.forms import EditReviewForm
 
 
-@login_required
+@ login_required
 def UpvoteView(request, id):
     review = Review.objects.get(id=id)
     if Review.objects.filter(id=id).filter(voters=request.user):
@@ -14,8 +14,24 @@ def UpvoteView(request, id):
         review.save()
     return HttpResponseRedirect(reverse('recipe', args=(review.recipe.title,)))
 
+# @login_required
+# def UpvoteView(request, id):
+#     review = Review.objects.get(id=id)
+#     print("upvote clicked")
+#     if request.user.username not in review.voters.values_list('username'):
+#         print("request.user.username = ", request.user.username)
+#         print("review.voters.values_list = ", review.voters.values_list('username'))
+#         print("upvotes before = ", review.upvotes)
+#         review.upvotes += 1
+#         review.voters.add(request.user)
+#         review.save()
+#         print("upvotes after = ", review.upvotes)
+#     else:
+#         print("upvote exiting no action")
+#     return HttpResponseRedirect(reverse('recipe', args=(review.recipe.title,)))
 
-@login_required
+
+@ login_required
 def DownvoteView(request, id):
     review = Review.objects.get(id=id)
     if Review.objects.filter(id=id).filter(voters=request.user):
