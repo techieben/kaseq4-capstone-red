@@ -107,13 +107,15 @@ class RecipeAddView(LoginRequiredMixin, View):
 
     def post(self, request):
         html = "form.html"
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST, request.FILES)
+        breakpoint()
         if form.is_valid():
             data = form.cleaned_data
             recipe = Recipe.objects.create(
                 author=request.user,
                 title=data['title'],
                 description=data['description'],
+                image=data['image'],
                 tags=data['tags'],
                 ingredients=data['ingredients'],
                 instructions=data['instructions'],
@@ -130,7 +132,6 @@ class RecipeAddView(LoginRequiredMixin, View):
                     text=str(request.user) + " posted a new recipe  " +
                     str(recipe.title) + "."
                 )
-                # for user in request.user.following
             return HttpResponseRedirect(reverse('recipe',
                                                 args=(recipe.title,)))
         return render(request, html, {"form": form})
@@ -141,9 +142,10 @@ def RecipeEditView(request, title):
     recipe = get_object_or_404(Recipe, title=title)
     if request.user == recipe.author or request.user.is_superuser:
         if request.method == 'POST':
-            form = RecipeForm(request.POST, instance=recipe)
-            form.save()
-            return HttpResponseRedirect(reverse('recipe', args=(title,)))
+            form = RecipeForm(request.POST, request.FILES, instance=recipe)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('recipe', args=(title,)))
 
         form = RecipeForm(instance=recipe)
         return render(request, "form.html", {'form': form})
