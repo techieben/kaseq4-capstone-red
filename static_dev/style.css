@@ -165,13 +165,13 @@ div.card {
 }
 
 div.card:hover {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card button {
   border: none;
   outline: 0;
-  background-color:beige;
+  background-color: beige;
   text-align: center;
   vertical-align: text-bottom;
   cursor: pointer;
@@ -198,9 +198,8 @@ h1#error404 {
   color: red;
 }
 
-body {
+/* body {
   text-align: center;
-}
+} */
 
 /* error 404 page not found end*/
-
