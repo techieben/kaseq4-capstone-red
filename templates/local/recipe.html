@@ -4,8 +4,8 @@
 
 {% if request.user.is_authenticated %}
 <p>
-  {% if request.user != recipe.author %}
-  <a href="/recipe_review"> Review Recipe </a> | {% endif %}
+  <!-- {% if request.user != recipe.author %}
+  <a href="/recipe_review"> Review Recipe </a> | {% endif %} -->
   {% if recipe in request.user.favorites.all %}
   <a href="/unfavorite/{{ recipe.title }}">Unfavorite This Recipe</a>
   {% else %}
@@ -81,6 +81,7 @@
   </li>
 </ul>
 <div class="Comments-Container">
+  {% if request.user != recipe.author %}
   <div class="New-Review-Container">
     <h4>Write a Review</h4>
     <form action="" method="post">
@@ -89,8 +90,10 @@
       <input type="submit" class="btn btn-primary" value="Submit" />
     </form>
   </div>
+  {% endif %}
 
   <div class="reviews-list">
+    <h4>Reviews</h4>
     {% for review in reviews %}
     <div class="review">
       <ul>

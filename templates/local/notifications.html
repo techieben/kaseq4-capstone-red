@@ -1,19 +1,18 @@
 {% extends 'base.html' %} {% block content %}
-<h4>Notifications</h1>
+<h4>Notifications</h4>
 
 <ul>
-    {% for notification in notifications %}
-        <li>
-            {{notification.text}}
-        </li>
-    {% endfor %}
-    {% if notifications|length == 0 %}
-        <li>
-            <div>
-                Notification box empty.
-            </div>
-        </li>
-    {% endif %}
+  {% for notification in notifications %}
+  <li>
+    {{notification.text}}
+  </li>
+  {% endfor %} {% if notifications|length == 0 %}
+  <li>
+    <div>
+      Notification box empty.
+    </div>
+  </li>
+  {% endif %}
 </ul>
 
 {% endblock %}
