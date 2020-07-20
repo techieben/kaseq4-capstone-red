@@ -8,7 +8,7 @@ from review.forms import EditReviewForm
 @login_required
 def UpvoteView(request, id):
     review = Review.objects.get(id=id)
-    if Review.objects.filter(id=id).filter(voters=request.user):
+    if Review.objects.filter(id=id):
         review.upvotes += 1
         review.voters.add(request.user)
         review.save()
@@ -18,7 +18,7 @@ def UpvoteView(request, id):
 @login_required
 def DownvoteView(request, id):
     review = Review.objects.get(id=id)
-    if Review.objects.filter(id=id).filter(voters=request.user):
+    if Review.objects.filter(id=id):
         review.downvotes += 1
         review.voters.add(request.user)
         review.save()
