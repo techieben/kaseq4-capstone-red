@@ -1,15 +1,15 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
-from review.models import Review, Voters
+from review.models import Review, Voter
 from review.forms import EditReviewForm
 
 
 @login_required
 def UpvoteView(request, id):
     review = Review.objects.get(id=id)
-    if Voters.objects.filter(user=request.user, review=review):
-        voter = Voters.objects.get(user=request.user, review=review)
+    if Voter.objects.filter(user=request.user, review=review):
+        voter = Voter.objects.get(user=request.user, review=review)
     else:
         voter = False
     if Review.objects.filter(id=id):
@@ -21,14 +21,14 @@ def UpvoteView(request, id):
                 voter.delete()
                 review.downvotes -= 1
                 review.upvotes += 1
-                Voters.objects.create(
+                Voter.objects.create(
                     user=request.user,
                     review=review,
                     vote='Upvote'
                 )
         else:
             review.upvotes += 1
-            Voters.objects.create(
+            Voter.objects.create(
                 user=request.user,
                 review=review,
                 vote='Upvote'
@@ -40,8 +40,8 @@ def UpvoteView(request, id):
 @login_required
 def DownvoteView(request, id):
     review = Review.objects.get(id=id)
-    if Voters.objects.filter(user=request.user, review=review):
-        voter = Voters.objects.get(user=request.user, review=review)
+    if Voter.objects.filter(user=request.user, review=review):
+        voter = Voter.objects.get(user=request.user, review=review)
     else:
         voter = False
     if Review.objects.filter(id=id):
@@ -53,14 +53,14 @@ def DownvoteView(request, id):
                 voter.delete()
                 review.upvotes -= 1
                 review.downvotes += 1
-                Voters.objects.create(
+                Voter.objects.create(
                     user=request.user,
                     review=review,
                     vote='Downvote'
                 )
         else:
             review.downvotes += 1
-            Voters.objects.create(
+            Voter.objects.create(
                 user=request.user,
                 review=review,
                 vote='Downvote'
