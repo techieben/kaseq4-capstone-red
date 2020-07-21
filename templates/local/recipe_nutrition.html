@@ -1,52 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% comment %} <h1>Nutrition Info</h1> {% endcomment %}
-
-{% comment %} {% if api_response == '200' %}
-    <div class='container'>
-        <ul>
-            <li>
-                Calories: {{calories}}
-            </li>
-            <li>
-                Total Fat: {{total_fat}}
-            </li>
-            <li>
-                Saturated Fat: {{saturated_fat}}
-            </li>
-            <li>
-                Cholesterol: {{cholesterol}}
-            </li>
-            <li>
-                Sodium: {{sodium}}
-            </li>
-            <li>
-                Total Carbohydrates: {{total_carbohydrate}}
-            </li>
-            <li>
-                Dietary Fiber: {{dietary_fiber}}
-            </li>
-            <li>
-                Sugars: {{sugars}}
-            </li>
-            <li>
-                Protein: {{protein}}
-            </li>
-            <li>
-                Potassium: {{potassium}}
-            </li>
-        </ul>
-    </div>
-{% else %}
-    <div>
-        There was an error getting the nutritional information from the nutritionix api.
-    </div>
-{% endif%}
-
-{% endblock %} {% endcomment %}
-
-
 {% if api_response == '200' %}
 {% comment %} Props for the HTML and CSS! <img src="https://s.cdpn.io/3/NutritionFacts.gif" class="image"> {% endcomment %}
 <section class="performance-facts">
@@ -186,7 +140,7 @@
           {{calcium}} mg
         </td>
         <td>
-          Potassium
+          Pot.
           {{potassium}} mg
         </td>
       </tr>
