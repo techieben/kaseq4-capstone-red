@@ -1,41 +1,48 @@
 {% extends 'base.html' %} {% block content %}
 
-<h2> {{ profile.username }}</h2>
-<div id="profile_pic_container">
-  <img src="{{ profile.image.url }}"/>
+<div class="profile_container">
+    <h2 class="profile_name"> {{ profile.username }}</h2>
+    <div class="profile_mid">
+        <div class="profile_image">
+            <img src="{{ profile.image.url }}"/>
+        </div>
+
+        <div class="profile_text">
+            {% if request.user.is_authenticated %}
+                {% if request.user == profile %}
+                    <p>
+                        <a href="/profile_edit"> Edit Profile </a>
+                    </p>
+
+                {% else %}
+                <p class="profile_links">
+                  {% if profile in request.user.following.all %}
+                    <a href="/unfollow/{{ profile.username }}">Unfollow This User</a>
+                  {% else %}
+                    <a href="/follow/{{ profile.username }}">Follow This User</a>
+                  {% endif %}
+                </p>
+                {% endif %}
+            {% endif %}
+
+            <p>
+                Followers: {{ profile.followed_by.count }}
+            </p>
+            <p>
+                Recipes: {{ recipes|length }}
+            </p>
+            <p class="profile_bio">
+                {% if profile.bio != '' %}
+                    Bio: {{ profile.bio }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
 </div>
-<br />
 
-    {% if request.user.is_authenticated %}
-        {% if request.user == profile %}
-            <a href="/profile_edit"> Edit Profile </a>
-            <br />
-            <br />
-        {% else %}
-        <p class="profile_links">
-          {% if profile in request.user.following.all %}
-            <a href="/unfollow/{{ profile.username }}">Unfollow This User</a>
-          {% else %}
-            <a href="/follow/{{ profile.username }}">Follow This User</a>
-          {% endif %}
-        </p>
-        {% endif %}
-    {% endif %}
-
-    <p>
-        Followers: {{ profile.followed_by.count }} |
-        Recipes: {{ recipes|length }}
-    </p>
-
-    <p>
-        {% if profile.bio != '' %}
-            Bio: {{ profile.bio }}
-        {% endif %}
-    </p>
-</div>
-
-<p>
+<div class="profile_recipes">
     {% if recipes %}
+    <h4 class="profile_recipes_header">My Recipes</h4>
       <div id="recipe-card-container">
         {% for recipe in recipes %}
             {% include 'recipe_card.html' %}
@@ -44,6 +51,6 @@
     {% else %}
         <h6>No Recipes.</h6>
     {% endif %}
-</p>
+</div>
 
 {% endblock %}

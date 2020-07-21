@@ -298,11 +298,16 @@ td#calories-from {
 
 /* profile start */
 .profile_container{
+    margin:auto;
+
+}
+.profile_mid{
     display: flex;
+    align-items: center;
 
 }
 .profile_name{
-    
+
 }
 .profile_image{
   width: 200px;
@@ -311,7 +316,19 @@ td#calories-from {
 .profile_links{
 
 }
-
+.profile_bio{
+    width: 350px;
+}
+.profile_text{
+    margin-left: 50px;
+}
+.profile_recipes{
+    margin-top: 100px;
+}
+.profile_recipes_header{
+    margin-bottom: 25px;
+    text-decoration: underline;
+}
 /* profile end */
 
 /* error 404/500 page not found start */
