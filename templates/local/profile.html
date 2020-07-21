@@ -2,6 +2,7 @@
 
 <h2> {{ profile.username }}</h2>
 <img src="{{ profile.image.url }}"/>
+<br />
 
 {% if request.user.is_authenticated %}
     {% if request.user == profile %}
