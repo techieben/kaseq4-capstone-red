@@ -12,6 +12,7 @@ from review.forms import AddReviewForm
 from django.views.generic import View
 from django.db.models import Avg, Func
 import requests
+import environ
 
 
 class RecipeView(View):
@@ -183,12 +184,14 @@ def UnfavoriteView(request, title):
 
 def RecipeNutritionView(request, title):
     html = 'recipe_nutrition.html'
+    env = environ.Env()
+    environ.Env.read_env()
     recipe = Recipe.objects.get(title=title)
-    url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
+    url = env('api_url')
     headers = {
-        'x-app-id': '737e78f4',
-        'x-app-key': 'b33863a33f08cb00df2a437da6f050e9',
-        'x-remote-user-id': '0',
+        'x-app-id': env('x_app_id'),
+        'x-app-key': env('x_app_key'),
+        'x-remote-user-id': env('x_remote_user_id'),
         'Content-Type': 'application/json'
     }
     payload = "{\"query\": \"" + ' and '.join(recipe.ingredients) + "\"}"
