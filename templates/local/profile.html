@@ -1,9 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="profile_container">
-    <h2 class="profile_name"> {{ profile.username }}</h2>
-    <img class="profile_image" src="{{ profile.image.url }}"/>
-    <br />
+<h2> {{ profile.username }}</h2>
+<div id="profile_pic_container">
+  <img src="{{ profile.image.url }}"/>
+</div>
+<br />
 
     {% if request.user.is_authenticated %}
         {% if request.user == profile %}

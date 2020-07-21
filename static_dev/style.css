@@ -320,3 +320,19 @@ h1#error404, h1#error500 {
 }
 
 /* error 404/500 page not found end*/
+
+/* Profile Picture begin */
+
+div#profile_pic_container {
+  width: 250px;
+  height: 250px;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  object-fit: cover;
+}
+
+/* Profile Picture end */

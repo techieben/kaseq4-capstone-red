@@ -6,9 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Recipe
 from .forms import RecipeForm
-from review.models import Review
-from notification.models import Notification
-from review.forms import AddReviewForm
+# from review.models import Review
+# from notification.models import Notification
+# from review.forms import AddReviewForm
 from django.views.generic import View
 from django.db.models import Avg, Func
 import requests
