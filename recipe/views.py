@@ -145,7 +145,7 @@ def RecipeEditView(request, title):
             form = RecipeForm(request.POST, request.FILES, instance=recipe)
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect(reverse('recipe', args=(title,)))
+                return HttpResponseRedirect(reverse('recipe', args=(form.cleaned_data['title'],)))
 
         form = RecipeForm(instance=recipe)
         return render(request, "form.html", {'form': form})
