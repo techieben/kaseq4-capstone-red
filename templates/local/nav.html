@@ -16,13 +16,10 @@
 </p>
 <p>
   <a href="/notifications"
-    >Notifications: {% if request.user.notification_set.count %} ({{
-    request.user.notification_set.count }}) {% endif %}
-  {% comment %} <a href="{% url 'search' %}">Search</a> | {% endcomment %}
+    >Notifications {% if request.user.user_to.count %} ({{ request.user.user_to.count }}) {% endif %}
   | <a href="/profile/{{ request.user.username }}">My Profile</a> |
   <a href="/recipe_add/">Add a Recipe</a> |
   <a href="/favorite_list/default">Favorite Recipes</a> |
-  {% comment %} <a href="{% url 'account_email' %}">Change E-mail</a> | {% endcomment %}
   <a href="{% url 'account_logout' %}">Sign Out</a>
 </p>
 {% else %}

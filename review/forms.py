@@ -8,8 +8,10 @@ from user.models import CustomUser
 class AddReviewForm(forms.ModelForm):
     queryset_user = CustomUser.objects.all()
     queryset_recipe = Recipe.objects.all()
-    author = forms.ModelChoiceField(queryset=queryset_user, widget=forms.HiddenInput)
-    recipe = forms.ModelChoiceField(queryset=queryset_recipe, widget=forms.HiddenInput)
+    author = forms.ModelChoiceField(
+        queryset=queryset_user, widget=forms.HiddenInput)
+    recipe = forms.ModelChoiceField(
+        queryset=queryset_recipe, widget=forms.HiddenInput)
 
     class Meta:
         model = Review
