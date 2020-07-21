@@ -7,7 +7,6 @@ urlpatterns = [
     path('recipe_edit/<str:title>/', views.RecipeEditView, name='recipe_edit'),
     path('favorite/<str:title>/', views.FavoriteView, name='favorite'),
     path('unfavorite/<str:title>/', views.UnfavoriteView, name='unfavorite'),
-    # path('favorite_list/', views.FavoriteListView, name='favorite_list'),
     re_path(r'^favorite_list/(?P<sort>\w+)/',
             views.FavoriteListView, name='favorite_list'),
     path('recipe_nutrition/<str:title>/', views.RecipeNutritionView, name='recipe_nutrition')

@@ -48,6 +48,7 @@ class Recipe(models.Model):
         blank=True,
         related_name='favorites'
     )
+    image = models.ImageField(upload_to='recipe_image', default='recipe_image/default_recipe.jpg')
     date_created = models.DateTimeField(default=timezone.now)
     # A list of CharField, or create a Tag class and make a many to many connection
     tags = ChoiceArrayField(models.CharField(

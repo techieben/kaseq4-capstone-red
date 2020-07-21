@@ -66,8 +66,10 @@ class RecipeView(View):
                 user_from=request.user,
                 recipe=recipe,
                 review=new_review,
-                text=str(request.user) + " left a review on your recipe " +
-                str(recipe.title) + "."
+                # text=r'<a href="/profile/' + str(request.user) + r'>' + str(
+                #     request.user) + r'</a> left a review on your recipe ' + str(recipe) + '.'
+                text=str(request.user) + " left a review of your " + \
+                str(recipe) + " recipe."
             )
             form = AddReviewForm(initial={'recipe': Recipe.objects.get(
                 title=title), 'author': request.user})
@@ -86,8 +88,6 @@ def FavoriteListView(request, sort):
     print("sort: ", sort)
     if sort == 'title':
         recipes = request.user.favorites.order_by('title')
-    elif sort == 'time_prep':
-        recipes = request.user.favorites.order_by('time_prep')
     elif sort == 'date_old':
         recipes = request.user.favorites.order_by('date_created')
     else:
@@ -107,13 +107,14 @@ class RecipeAddView(LoginRequiredMixin, View):
 
     def post(self, request):
         html = "form.html"
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
             recipe = Recipe.objects.create(
                 author=request.user,
                 title=data['title'],
                 description=data['description'],
+                image=data['image'],
                 tags=data['tags'],
                 ingredients=data['ingredients'],
                 instructions=data['instructions'],
@@ -130,7 +131,6 @@ class RecipeAddView(LoginRequiredMixin, View):
                     text=str(request.user) + " posted a new recipe  " +
                     str(recipe.title) + "."
                 )
-                # for user in request.user.following
             return HttpResponseRedirect(reverse('recipe',
                                                 args=(recipe.title,)))
         return render(request, html, {"form": form})
@@ -141,9 +141,10 @@ def RecipeEditView(request, title):
     recipe = get_object_or_404(Recipe, title=title)
     if request.user == recipe.author or request.user.is_superuser:
         if request.method == 'POST':
-            form = RecipeForm(request.POST, instance=recipe)
-            form.save()
-            return HttpResponseRedirect(reverse('recipe', args=(title,)))
+            form = RecipeForm(request.POST, request.FILES, instance=recipe)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('recipe', args=(title,)))
 
         form = RecipeForm(instance=recipe)
         return render(request, "form.html", {'form': form})
@@ -267,9 +268,9 @@ def RecipeNutritionView(request, title):
         })
 
 
-def error_404(request, exception):
-    return render(request, '404.html', status=404)
+# def error_404(request, exception):
+#     return render(request, '404.html', status=404)
 
 
-def error_500(request):
-    return render(request, '500.html', status=500)
+# def error_500(request):
+#     return render(request, '500.html', status=500)
