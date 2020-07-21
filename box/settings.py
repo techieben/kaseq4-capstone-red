@@ -22,12 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-# env = environ.Env()
-# # reading .env file
-# environ.Env.read_env()
-# SECRET_KEY = env("SECRET_KEY")
-
-SECRET_KEY = 'p5+r*p4hx@f*o&*nnl*bwrqi71rvubxjel_4z7iu+@te(!5dy7'
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
