@@ -1,13 +1,23 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.utils import timezone
 from user.models import CustomUser
 from recipe.models import Recipe
 
 
+class Voters(models.Model):
+    model_choices = [
+        ('Upvote', 'Upvote'),
+        ('Downvote', 'Downvote'),
+    ]
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    review = models.ForeignKey('Review', on_delete=models.CASCADE, related_name='review')
+    vote = models.CharField(choices=model_choices, max_length=8)
+
+    REQUIRED_FIELDS = ['user', 'vote']
+
+
 class Review(models.Model):
     title = models.CharField(max_length=120)
-    date = models.DateTimeField(default=timezone.now)
     rating = models.PositiveIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
@@ -19,7 +29,7 @@ class Review(models.Model):
     upvotes = models.PositiveIntegerField(default=0)
     downvotes = models.PositiveIntegerField(default=0)
     voters = models.ManyToManyField(
-        CustomUser,
+        Voters,
         blank=True,
         symmetrical=False,
         related_name='voters'
