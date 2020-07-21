@@ -26,7 +26,7 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'first_name', 'last_name', 'image', 'bio')
+        fields = ('username', 'image', 'first_name', 'last_name', 'bio')
         exclude = ('email',)
 
 
