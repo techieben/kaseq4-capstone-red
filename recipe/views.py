@@ -47,8 +47,6 @@ class RecipeView(View):
             arity = 2
         html = 'recipe.html'
         recipe = Recipe.objects.get(title=title)
-        avg_rating = Review.objects.filter(
-            recipe=recipe.id).aggregate(avg_rate=Round(Avg('rating'), 1))
         reviews = Review.objects.filter(recipe=recipe.id)
         form = AddReviewForm(request.POST)
 
@@ -67,11 +65,11 @@ class RecipeView(View):
                 user_from=request.user,
                 recipe=recipe,
                 review=new_review,
-                # text=r'<a href="/profile/' + str(request.user) + r'>' + str(
-                #     request.user) + r'</a> left a review on your recipe ' + str(recipe) + '.'
-                text=str(request.user) + " left a review of your " + \
+                text=str(request.user) + " left a review of your " +
                 str(recipe) + " recipe."
             )
+            avg_rating = Review.objects.filter(
+                recipe=recipe.id).aggregate(avg_rate=Round(Avg('rating'), 1))
             form = AddReviewForm(initial={'recipe': Recipe.objects.get(
                 title=title), 'author': request.user})
 
@@ -187,6 +185,7 @@ def RecipeNutritionView(request, title):
     env = environ.Env()
     environ.Env.read_env()
     recipe = Recipe.objects.get(title=title)
+    breakpoint()
     url = env('api_url')
     headers = {
         'x-app-id': env('x_app_id'),
