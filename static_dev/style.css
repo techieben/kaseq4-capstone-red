@@ -295,6 +295,25 @@ td#calories-from {
 
 /* recipe labels end */
 
+
+/* profile start */
+.profile_container{
+    display: flex;
+
+}
+.profile_name{
+    
+}
+.profile_image{
+  width: 200px;
+  height: 200px;
+}
+.profile_links{
+
+}
+
+/* profile end */
+
 /* error 404/500 page not found start */
 h1#error404, h1#error500 {
   color: red;
