@@ -185,7 +185,6 @@ def RecipeNutritionView(request, title):
     env = environ.Env()
     environ.Env.read_env()
     recipe = Recipe.objects.get(title=title)
-    breakpoint()
     url = env('api_url')
     headers = {
         'x-app-id': env('x_app_id'),
