@@ -305,8 +305,8 @@ h1#error404, h1#error500 {
 /* Profile Picture begin */
 
 div#profile_pic_container {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   margin: 0;
   padding: 0;
 }
