@@ -4,7 +4,7 @@ from user.models import CustomUser
 from recipe.models import Recipe
 
 
-class Voters(models.Model):
+class Voter(models.Model):
     model_choices = [
         ('Upvote', 'Upvote'),
         ('Downvote', 'Downvote'),
@@ -28,12 +28,6 @@ class Review(models.Model):
         CustomUser, on_delete=models.CASCADE)
     upvotes = models.PositiveIntegerField(default=0)
     downvotes = models.PositiveIntegerField(default=0)
-    voters = models.ManyToManyField(
-        Voters,
-        blank=True,
-        symmetrical=False,
-        related_name='voters'
-    )
 
     REQUIRED_FIELDS = [
         'title',

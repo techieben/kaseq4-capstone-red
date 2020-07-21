@@ -1,6 +1,6 @@
 from django.contrib import admin
-from review.models import Review, Voters
+from review.models import Review, Voter
 
 # Register your models here.
 admin.site.register(Review)
-admin.site.register(Voters)
+admin.site.register(Voter)
