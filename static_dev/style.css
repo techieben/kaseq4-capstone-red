@@ -24,6 +24,10 @@ h4 {
   font-family: "Ubuntu", sans-serif;
 }
 
+.footer{
+    height:50px;
+}
+
 .date {
   color: #828282;
 }
@@ -330,6 +334,65 @@ td#calories-from {
     text-decoration: underline;
 }
 /* profile end */
+
+/* recipe start */
+.recipe_container{
+    margin:auto;
+}
+.recipe_top{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.recipe_image{
+    width: 200px;
+    height: 200px;
+}
+.recipe_title{
+    font-size: 35px;
+}
+.recipe_text{
+    margin-left: 50px;
+}
+.recipe_author{
+    font-size: 16px;
+    margin: 20px;
+}
+.recipe_deatils{
+    margin-left: 20px;
+    margin-bottom: 40px;
+}
+.recipe_details_item{
+    display: flex;
+}
+.recipe_deatils_left{
+    width: 120px;
+    text-align: right;
+    margin-right: 20px;
+}
+.recipe_details_right{
+
+}
+.reviews-list{
+    margin-top: 40px;
+}
+.reviews-header{
+    margin-bottom: 20px;
+}
+.review{
+    margin-bottom: 20px;
+}
+.review-info{
+    margin-left: 20px;
+}
+.review-content{
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+.review-form{
+    margin-left: 20px;
+}
+/* recipe end */
 
 /* error 404/500 page not found start */
 h1#error404, h1#error500 {
