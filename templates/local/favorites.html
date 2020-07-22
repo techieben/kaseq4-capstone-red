@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+
+{% load custom_tags %}
+
+<h2>Favorite Recipes</h2>
+
+<p>
+    <a href="/favorite_list/title">By Title</a> | 
+    <a href="/favorite_list/date_old"> By Oldest </a> | 
+    <a href="/favorite_list/date_new"> By Newest </a>
+</p>
+
+<p>
+    {% if recipes %}
+    <div id="recipe-card-container">
+        {% for recipe in recipes %}
+            {% include 'recipe_card.html' %}
+        {% endfor %}
+    </div>
+    {% else %}
+        <h6>No Recipes.</h6>
+    {% endif %}
+</p>
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% comment %} {% load static %} {% endcomment %}
+
+
+  <div class="card">
+    <a href="/recipe/{{ recipe.title }}"
+      ><h3 id="recipe-title-card">{{ recipe.title }}</h3>
+      <img
+        src="{{ recipe.image.url }}"
+        alt="wildest pizza"
+        width="225"
+        height="200"
+      />
+    </a>
+    <div>
+      <p id="star"><button>Rating:{{review.rating}}stars</button></p>
+    </div>
+  </div>

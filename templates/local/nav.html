@@ -1,0 +1,30 @@
+{% comment %} https://www.calazan.com/adding-basic-search-to-your-django-site/ {% endcomment %}
+
+<div id="topnav" class="search-container">
+  <form id="searchform" action="{% url 'search' %}" method="get" accept-charset="utf-8">
+    <button class="search-glass-button" type="submit">
+      <i class="search-glass" aria-hidden="true">&#128270;</i>
+    </button>
+    <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
+  </form>
+</div>
+
+{% if request.user.is_authenticated %}
+<p>
+  Logged in as
+  <a href="/profile/{{request.user.username}}/">{{ request.user.username }}</a>
+</p>
+<p>
+  <a href="/notifications"
+    >Notifications {% if request.user.user_to.count %} ({{ request.user.user_to.count }}) {% endif %}
+  | <a href="/profile/{{ request.user.username }}">My Profile</a> |
+  <a href="/recipe_add/">Add a Recipe</a> |
+  <a href="/favorite_list/default">Favorite Recipes</a> |
+  <a href="{% url 'account_logout' %}">Sign Out</a>
+</p>
+{% else %}
+<p>
+  <a href="{% url 'account_login' %}">Sign In</a> |
+  <a href="{% url 'account_signup' %}">Sign Up</a>
+</p>
+{% endif %}
