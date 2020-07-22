@@ -12,6 +12,7 @@ from review.forms import AddReviewForm
 from django.views.generic import View
 from django.db.models import Avg, Func
 import requests
+import environ
 
 
 class RecipeView(View):
@@ -46,8 +47,6 @@ class RecipeView(View):
             arity = 2
         html = 'recipe.html'
         recipe = Recipe.objects.get(title=title)
-        avg_rating = Review.objects.filter(
-            recipe=recipe.id).aggregate(avg_rate=Round(Avg('rating'), 1))
         reviews = Review.objects.filter(recipe=recipe.id)
         form = AddReviewForm(request.POST)
 
@@ -66,11 +65,11 @@ class RecipeView(View):
                 user_from=request.user,
                 recipe=recipe,
                 review=new_review,
-                # text=r'<a href="/profile/' + str(request.user) + r'>' + str(
-                #     request.user) + r'</a> left a review on your recipe ' + str(recipe) + '.'
-                text=str(request.user) + " left a review of your " + \
+                text=str(request.user) + " left a review of your " +
                 str(recipe) + " recipe."
             )
+            avg_rating = Review.objects.filter(
+                recipe=recipe.id).aggregate(avg_rate=Round(Avg('rating'), 1))
             form = AddReviewForm(initial={'recipe': Recipe.objects.get(
                 title=title), 'author': request.user})
 
@@ -144,7 +143,7 @@ def RecipeEditView(request, title):
             form = RecipeForm(request.POST, request.FILES, instance=recipe)
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect(reverse('recipe', args=(title,)))
+                return HttpResponseRedirect(reverse('recipe', args=(form.cleaned_data['title'],)))
 
         form = RecipeForm(instance=recipe)
         return render(request, "form.html", {'form': form})
@@ -183,12 +182,14 @@ def UnfavoriteView(request, title):
 
 def RecipeNutritionView(request, title):
     html = 'recipe_nutrition.html'
+    env = environ.Env()
+    environ.Env.read_env()
     recipe = Recipe.objects.get(title=title)
-    url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
+    url = env('api_url')
     headers = {
-        'x-app-id': '737e78f4',
-        'x-app-key': 'b33863a33f08cb00df2a437da6f050e9',
-        'x-remote-user-id': '0',
+        'x-app-id': env('x_app_id'),
+        'x-app-key': env('x_app_key'),
+        'x-remote-user-id': env('x_remote_user_id'),
         'Content-Type': 'application/json'
     }
     payload = "{\"query\": \"" + ' and '.join(recipe.ingredients) + "\"}"
