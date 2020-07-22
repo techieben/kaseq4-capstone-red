@@ -1,8 +1,8 @@
 from recipe.models import Recipe
-from django.shortcuts import render
+from django.views.generic import ListView
 
 
-def IndexView(request):
-    html = 'index.html'
-    recipes = Recipe.objects.all()
-    return render(request, html, {'recipes': recipes})
+class IndexView(ListView):
+    template_name = 'index.html'
+    model = Recipe
+    queryset = Recipe.objects.all().order_by('-date')[:20]

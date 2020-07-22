@@ -1,14 +1,8 @@
-from django.urls import path, re_path
+from django.urls import path
 from recipe import views
 
 urlpatterns = [
-    path('recipe/<str:title>/', views.RecipeView.as_view(), name='recipe'),
+    path('recipe/<int:id>/', views.RecipeView, name='recipe'),
     path('recipe_add/', views.RecipeAddView.as_view(), name='recipe_add'),
-    path('recipe_edit/<str:title>/', views.RecipeEditView, name='recipe_edit'),
-    path('favorite/<str:title>/', views.FavoriteView, name='favorite'),
-    path('unfavorite/<str:title>/', views.UnfavoriteView, name='unfavorite'),
-    # path('favorite_list/', views.FavoriteListView, name='favorite_list'),
-    re_path(r'^favorite_list/(?P<sort>\w+)/',
-            views.FavoriteListView, name='favorite_list'),
-    path('recipe_nutrition/<str:title>/', views.RecipeNutritionView, name='recipe_nutrition')
 ]
+
