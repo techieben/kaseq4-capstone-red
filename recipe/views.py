@@ -98,8 +98,6 @@ def FavoriteListView(request, sort):
 class RecipeAddView(LoginRequiredMixin, View):
 
     def get(self, request):
-        for follower in request.user.followed_by.all():
-            print(follower.username)
         html = "form.html"
         form = RecipeForm()
         return render(request, html, {"form": form})

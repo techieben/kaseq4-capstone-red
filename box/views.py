@@ -15,7 +15,6 @@ def IndexView(request):
     for recipe in recipes:
         avg_rating.append(Review.objects.filter(
             id=recipe.id).aggregate(avg_rate=Round(Avg('rating'), 1)))
-    print(avg_rating)
     return render(request, html, {
         'recipes': recipes,
         'avg_rating': avg_rating
