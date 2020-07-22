@@ -10,5 +10,4 @@ urlpatterns = [
     re_path(r'^favorite_list/(?P<sort>\w+)/',
             views.FavoriteListView, name='favorite_list'),
     path('recipe_nutrition/<str:title>/', views.RecipeNutritionView, name='recipe_nutrition'),
-    # path('contact_form/', views.ContactForm, name='contact_form'),
 ]
