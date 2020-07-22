@@ -299,7 +299,6 @@ td#calories-from {
 /* profile start */
 .profile_container{
     margin:auto;
-
 }
 .profile_mid{
     display: flex;
@@ -330,6 +329,29 @@ td#calories-from {
     text-decoration: underline;
 }
 /* profile end */
+
+/* recipe start */
+.recipe_container{
+    margin:auto;
+}
+.recipe_top{
+    display: flex;
+    align-items: center;
+}
+.recipe_image{
+    width: 200px;
+    height: 200px;
+}
+.recipe_title{
+    font-size: 35px;
+}
+.recipe_text{
+    margin-left: 50px;
+}
+.recipe_author{
+    font-size: 16px;
+}
+/* recipe end */
 
 /* error 404/500 page not found start */
 h1#error404, h1#error500 {

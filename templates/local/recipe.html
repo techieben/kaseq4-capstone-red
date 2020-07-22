@@ -1,40 +1,48 @@
 {% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
 
-<h2>{{recipe.title}}</h2>
+<div class="recipe_container">
+    <h2 class="recipe_title">{{recipe.title}}</h2>
+    <div class="recipe_author">
+        Author:
+        <a href="/profile/{{ recipe.author.username }}"
+          >{{recipe.author.username}}</a
+        >
+        | Created on {{recipe.date_created}}
+    </div>
+    <div class="recipe_top">
+        <img class="recipe_image" src="{{ recipe.image.url }}"/>
+        <div class="recipe_text">
+            {% if request.user.is_authenticated %}
+            <p>
+              {% if recipe in request.user.favorites.all %}
+              <a href="/unfavorite/{{ recipe.title }}">Unfavorite This Recipe</a>
+              {% else %}
+              <a href="/favorite/{{ recipe.title }}">Favorite This Recipe</a>
+              {% endif %}
+              {% if request.user == recipe.author %}
+              <p>
+                  <a href="/recipe_edit/{{ recipe.title }}"> Edit Recipe </a> {% endif %}
+              </p>
+              <p>
+                  <a href="/recipe_nutrition/{{ recipe.title }}"> Nutrition Info </a>
+              </p>
+            </p>
+            {% endif %}
 
-{% if request.user.is_authenticated %}
-<p>
-  {% if recipe in request.user.favorites.all %}
-  <a href="/unfavorite/{{ recipe.title }}">Unfavorite This Recipe</a>
-  {% else %}
-  <a href="/favorite/{{ recipe.title }}">Favorite This Recipe</a>
-  {% endif %}
-  {% if request.user == recipe.author %} |
-  <a href="/recipe_edit/{{ recipe.title }}"> Edit Recipe </a> {% endif %} |
-  <a href="/recipe_nutrition/{{ recipe.title }}"> Nutrition Info </a>
-</p>
-{% endif %}
-
-<p>
-  Rating: {% if avg_rating == None %}
-  0 Stars
-  {% else %}
-    {{avg_rating}} Stars
-  {% endif %}| Favorited by {{ recipe.favorited_by.count }} users
-
-</p>
-
-<p></p>
-
-<img src="{{ recipe.image.url }}"/>
+            <p>
+              Rating: {% if avg_rating == None %}
+              0 Stars
+              {% else %}
+                {{avg_rating}} Stars
+              {% endif %}
+            </p>
+            <p>
+                Favorited by {{ recipe.favorited_by.count }} users
+            </p>
+        </div>
+    </div>
+</div>
 <ul>
-  <li>
-    Author:
-    <a href="/profile/{{ recipe.author.username }}"
-      >{{recipe.author.username}}</a
-    >
-    | Created on {{recipe.date_created}}
-  </li>
   <li>
     Tags:
     <ul>
