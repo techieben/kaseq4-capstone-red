@@ -5,12 +5,13 @@ from django.shortcuts import (render,
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Recipe
-from .forms import RecipeForm
+from .forms import RecipeForm, ContactForm
 from review.models import Review
 from notification.models import Notification
 from review.forms import AddReviewForm
 from django.views.generic import View
 from django.db.models import Avg, Func
+from django.core.mail import send_mail
 import requests
 import environ
 
@@ -269,9 +270,30 @@ def RecipeNutritionView(request, title):
         })
 
 
-# def error_404(request, exception):
-#     return render(request, '404.html', status=404)
+# def contact_form(request):
+#     if request.method == 'POST':
+#         form = ContactForm()
+#     else: 
+#         form = ContactForm(request.POST)
+#         if form.is_valid():
+#             subject = form.cleaned_data['subject']
+#             message = form.cleaned_data['message']
+#             date = form.cleaned_data['date']
+#             sender = form.cleaned_data['sender']
+#             cc_myself = form.cleaned_data['cc_myself']
+#             try:
+#                 send_mail(subject, message, from_email, ['admin@example.com'])
+#             except BadHeaderError:
+#                 return HttpResponse('Invalid header found.')
+#             return redirect('success')
+#     return render(request, "contact_form.html", {'form': form})
 
+# def successView(request):
+#     return HttpResponse('Success! Thank you for your message.')
 
-# def error_500(request):
-#     return render(request, '500.html', status=500)
+#             recipients = ['info@example.com']
+#             if cc_myself:
+#                 recipients.append(sender)
+
+#                 send_mail(subject, message, sender, recipients)
+#         return render(request, "recipe.html", {"form": form})

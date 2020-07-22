@@ -1,13 +1,10 @@
-{% extends 'base.html' %}
-{% block content %}
-
-{% if api_response == '200' %}
-{% comment %} Props for the HTML and CSS! <img src="https://s.cdpn.io/3/NutritionFacts.gif" class="image"> {% endcomment %}
+{% extends 'base.html' %} {% block content %} {% if api_response == '200' %} 
 <section class="performance-facts">
   <header class="performance-facts__header">
     <h1 class="performance-facts__title">Nutrition Facts</h1>
-    <p>Serving Size 1/2 cup (about 82g)
-      {% comment %} <p>Serving Per Container 8</p> {% endcomment %}
+    <p>Serving Size 1/2 cup (about 82g) {% comment %}</p>
+    <p>Serving Per Container 8</p>
+    {% endcomment %}
   </header>
   <table class="performance-facts__table">
     <thead>
@@ -24,8 +21,8 @@
           {{calories}}
         </th>
         <td id="calories-from">
-          Calories from Fat
-          130
+          {% comment %} Calories from Fat
+          130 {% endcomment %}
         </td>
       </tr>
       <tr class="thick-row">
@@ -35,7 +32,7 @@
       </tr>
       <tr>
         <th colspan="2">
-          <b>Total Fat</b> 
+          <b>Total Fat</b>
           {{total_fat}} g
         </th>
         <td>
@@ -43,25 +40,20 @@
         </td>
       </tr>
       <tr>
-        <td class="blank-cell">
-        </td>
+        <td class="blank-cell"></td>
         <th>
-          Saturated Fat
-          {{saturated_fat}} g
+          Saturated Fat {{saturated_fat}} g
         </th>
         <td>
           <b></b>
         </td>
       </tr>
       <tr>
-        <td class="blank-cell">
-        </td>
+        <td class="blank-cell"></td>
         <th>
-          Trans Fat
-          {{trans_fat}} g
+          Trans Fat {{trans_fat}} g
         </th>
-        <td>
-        </td>
+        <td></td>
       </tr>
       <tr>
         <th colspan="2">
@@ -74,7 +66,7 @@
       </tr>
       <tr>
         <th colspan="2">
-          <b>Sodium</b> 
+          <b>Sodium</b>
           {{sodium}} g
         </th>
         <td>
@@ -91,33 +83,27 @@
         </td>
       </tr>
       <tr>
-        <td class="blank-cell">
-        </td>
+        <td class="blank-cell"></td>
         <th>
-          Dietary Fiber 
-          {{dietary_fiber}} g
+          Dietary Fiber {{dietary_fiber}} g
         </th>
         <td>
           <b></b>
         </td>
       </tr>
       <tr>
-        <td class="blank-cell">
-        </td>
+        <td class="blank-cell"></td>
         <th>
-          Sugars 
-          {{sugars}} g
+          Sugars {{sugars}} g
         </th>
-        <td>
-        </td>
+        <td></td>
       </tr>
       <tr class="thick-end">
         <th colspan="2">
           <b>Protein</b>
           {{protein}} g
         </th>
-        <td>
-        </td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -126,18 +112,15 @@
     <tbody>
       <tr>
         <td colspan="2">
-          Vitamin A 
-          {{vitamin_a}} mcg
+          Vitamin A {{vitamin_a}} mcg
         </td>
         <td>
-          Vitamin C
-          {{vitamin_c}} mg
+          Vitamin C {{vitamin_c}} mg
         </td>
       </tr>
       <tr class="thin-end">
         <td colspan="2">
-          Calcium
-          {{calcium}} mg
+          Calcium {{calcium}} mg
         </td>
         <td>
           Pot.
@@ -147,7 +130,10 @@
     </tbody>
   </table>
 
-  <p class="small-info">* Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs:</p>
+  <p class="small-info">
+    * Percent Daily Values are based on a 2,000 calorie diet. Your daily values
+    may be higher or lower depending on your calorie needs:
+  </p>
 
   <table class="performance-facts__table--small small-info">
     <thead>
@@ -202,18 +188,12 @@
     Calories per gram:
   </p>
   <p class="small-info text-center">
-    Fat 9
-    &bull;
-    Carbohydrate 4
-    &bull;
-    Protein 4
-    </p>
-
-    </section>
-    {% else %}
-    <div>
-        There was an error getting the nutritional information from the nutritionix api.
-    </div>
-{% endif%}
-
-{% endblock %}
+    Fat 9 &bull; Carbohydrate 4 &bull; Protein 4
+  </p>
+</section>
+{% else %}
+<div>
+  There was an error getting the nutritional information from the nutritionix
+  api.
+</div>
+{% endif%} {% endblock %}

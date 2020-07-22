@@ -29,21 +29,6 @@
     <div class="page-header">
       <h1><a href="/">Recipe Hacker</a></h1>
       {% include 'nav.html' %}
-      {% comment %}
-
-      <div>
-        <strong>Menu:</strong>
-        <ul>
-          {% if user.is_authenticated %}
-          <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-          <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-          {% else %}
-          <li><a href="{% url 'account_login' %}">Sign In</a></li>
-          <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-          {% endif %}
-        </ul>
-      </div>
-      {% endcomment %}
     </div>
     <div class="content">
       <div class="row">
@@ -64,6 +49,7 @@
   </body>
   <footer class="footer">
       <div>
+        <a class="btn btn-primary" href="/contact_form/">Contact Us!</a>
       </div>
   </footer>
 </html>

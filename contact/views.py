@@ -13,7 +13,7 @@ def AddContactView(request):
                 subject=data['subject'],
                 message=data['message'],
                 sender=data['email'],
-                cc_myself=data['ccc'],
+                important=data['important'],
             )
         return HttpResponseRedirect(reverse('home'))
     form = ContactForm()
