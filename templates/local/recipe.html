@@ -1,96 +1,133 @@
 {% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
 
-<h2>{{recipe.title}}</h2>
+<div class="recipe_container">
+    <h2 class="recipe_title">{{recipe.title}}</h2>
+    <div class="recipe_author">
+        Author:
+        <a href="/profile/{{ recipe.author.username }}"
+          >{{recipe.author.username}}</a
+        >
+        | Created on {{recipe.date_created}}
+    </div>
+    <div class="recipe_top">
+        <img class="recipe_image" src="{{ recipe.image.url }}"/>
+        <div class="recipe_text">
+            {% if request.user.is_authenticated %}
+            <p>
+              {% if recipe in request.user.favorites.all %}
+              <a href="/unfavorite/{{ recipe.title }}">Unfavorite This Recipe</a>
+              {% else %}
+              <a href="/favorite/{{ recipe.title }}">Favorite This Recipe</a>
+              {% endif %}
+              {% if request.user == recipe.author %}
+              <p>
+                  <a href="/recipe_edit/{{ recipe.title }}"> Edit Recipe </a> {% endif %}
+              </p>
+              <p>
+                  <a href="/recipe_nutrition/{{ recipe.title }}"> Nutrition Info </a>
+            </p>
+        </p>
+            {% endif %}
 
-{% if request.user.is_authenticated %}
-<p>
-  {% if recipe in request.user.favorites.all %}
-  <a href="/unfavorite/{{ recipe.title }}">Unfavorite This Recipe</a>
-  {% else %}
-  <a href="/favorite/{{ recipe.title }}">Favorite This Recipe</a>
-  {% endif %}
-  {% if request.user == recipe.author %} |
-  <a href="/recipe_edit/{{ recipe.title }}"> Edit Recipe </a> {% endif %} |
-  <a href="/recipe_nutrition/{{ recipe.title }}"> Nutrition Info </a>
-</p>
-{% endif %}
-
-<p>
-  Rating: {% if avg_rating == None %}
-  0 Stars
-  {% else %}
-    {{avg_rating}} Stars
-  {% endif %}| Favorited by {{ recipe.favorited_by.count }} users
-
-</p>
-
-<p></p>
-
-<img src="{{ recipe.image.url }}"/>
-<ul>
-  <li>
-    Author:
-    <a href="/profile/{{ recipe.author.username }}"
-      >{{recipe.author.username}}</a
-    >
-    | Created on {{recipe.date_created}}
-  </li>
-  <li>
-    Tags:
-    <ul>
-      {% for tag in recipe.tags %}
-      <li>
-        {{tag}}
-      </li>
-      {% endfor %}
-    </ul>
-  </li>
-  <li>
-    Description: {{recipe.description}}
-  </li>
-  <li>
-    # of servings: {{recipe.servings}}
-  </li>
-  <li>
-    Prep Time: {{plain_prep}}
-  </li>
-  <li>
-    Cook Time: {{plain_cook}}
-  </li>
-  <li>
-    Additional Time: {{plain_additional}}
-  </li>
-  <li>
-    Total Time: {{recipe.total_time}}
-  </li>
-  <li>
-    Ingredients:
-    <ul>
-      {% for ingredient in recipe.ingredients %}
-      <li>
-        {{ingredient}}
-      </li>
-      {% endfor %}
-    </ul>
-  </li>
-  <li>
-    Instructions:
-    <ul>
-      {% for step in recipe.instructions %}
-      <li>
-        {{step}}
-      </li>
-      {% endfor %}
-    </ul>
-  </li>
-</ul>
+            <p>
+              Rating: {% if avg_rating == None %}
+              0 Stars
+              {% else %}
+                {{avg_rating}} Stars
+              {% endif %}
+          </p>
+          <p>
+                Favorited by {{ recipe.favorited_by.count }} users
+            </p>
+        </div>
+    </div>
+</div>
+<div class="recipe_deatils">
+    <div class="recipe_details_item">
+        <div class="recipe_deatils_left">
+            Tags:
+        </div>
+        <div class="recipe_details_right">
+            {% for tag in recipe.tags %}{{tag}} {% endfor %}
+        </div>
+    </div>
+    <div class="recipe_details_item">
+        <div class="recipe_deatils_left">
+            Description:
+        </div>
+        <div class="recipe_details_right">
+             {{recipe.description}}
+        </div>
+    </div>
+    <div class="recipe_details_item">
+        <div class="recipe_deatils_left">
+            # of servings:
+        </div>
+        <div class="recipe_details_right">
+             {{recipe.servings}}
+        </div>
+    </div>
+    <div class="recipe_details_item">
+        <div class="recipe_deatils_left">
+            Prep Time:
+        </div>
+        <div class="recipe_details_right">
+             {{plain_prep}}
+        </div>
+    </div>
+    <div class="recipe_details_item">
+        <div class="recipe_deatils_left">
+            Cook Time:
+        </div>
+        <div class="recipe_details_right">
+             {{plain_cook}}
+        </div>
+    </div>
+    <div class="recipe_details_item">
+        <div class="recipe_deatils_left">
+            Additional Time:
+        </div>
+        <div class="recipe_details_right">
+             {{plain_additional}}
+        </div>
+    </div>
+    <div class="recipe_details_item">
+        <div class="recipe_deatils_left">
+            Total Time:
+        </div>
+        <div class="recipe_details_right">
+             {{recipe.total_time}}
+        </div>
+    </div>
+    <hr />
+    <div>
+        Ingredients:
+        <ul>
+          {% for ingredient in recipe.ingredients %}
+          <li>
+            {{ingredient}}
+          </li>
+          {% endfor %}
+        </ul>
+    </div>
+    <div>
+        Instructions:
+        <ol>
+          {% for step in recipe.instructions %}
+              <li>
+                {{step}}
+              </li>
+          {% endfor %}
+      </ol>
+    </div>
+</div>
 
 <div class="Comments-Container">
   {% if request.user.is_authenticated %}
     {% if request.user != recipe.author %}
     <div class="New-Review-Container">
       <h4>Write a Review</h4>
-      <form action="" method="post">
+      <form action="" method="post" class="review-form" \>
         {% csrf_token %}
         {{ form|crispy }}
         <input type="submit" class="btn btn-primary" value="Submit" />
@@ -100,28 +137,28 @@
   {% endif %}
 
   <div class="reviews-list">
-    <h4>Reviews</h4>
+    <h4 class="reviews-header">Reviews</h4>
     {% if reviews %}
       {% for review in reviews %}
       <ul>
         <li>
           <div class="review">
-            <p>
+              <div>
               <h5> {{review.title}} </h5>
-              <p>
+              <div class="review-info">
                 {{review.rating}} Stars |
                 <a href="/profile/{{ review.author.username }}">{{review.author.username}}</a> |
                 {{review.date}}
-              </p>
-              <p>
+            </div>
+            <div class="review-content">
                 "{{review.content}}"
-              </p>
-              <p>
+            </div>
+            <div>
                 {% if request.user.is_authenticated %}
                   {% if review.author == request.user %}
-                    <a class="btn btn-primary" href="/review_edit/{{review.id}}">Edit Review</a>
                     Upvotes: {{ review.upvotes }} |
                     Downvotes: {{ review.downvotes }}
+                    <a class="btn btn-primary" href="/review_edit/{{review.id}}">Edit Review</a>
                   {% else %}
                   <a class="btn btn-primary" href="/review_like/{{review.id}}">Upvote ({{review.upvotes}})</a> |
                   <a class="btn btn-primary" href="/review_unlike/{{review.id}}">Downvote ({{review.downvotes}})</a>
@@ -134,8 +171,8 @@
                     <a class="btn btn-primary" href="/review_edit/{{review.id}}">Edit Review</a>
                   {% endif %}
                 {% endif %} {% endcomment %}
-              </p>
-            </p>
+            </div>
+        </div>
           </div>
         </li>
       </ul>
